@@ -479,6 +479,23 @@ table.dt ul.qs input:checked + span{text-decoration:line-through;color:var(--mut
 @media (max-width:1000px){.dgrid{grid-template-columns:1fr 1fr}.dgrid section:nth-child(3){border-left:0}.dgrid section:nth-child(n+3){border-top:1px solid var(--line)}}
 @media (max-width:600px){.dgrid{grid-template-columns:1fr}.dgrid section+section{border-left:0;border-top:1px solid var(--line)}.dcard header{grid-template-columns:1fr}.dwho{text-align:left}}
 </style>
+
+<style>
+:root{--qa:#A9C83B;--qb:#4F86C0;--qc:#EE5637;--qd:#7A70C9;--qe:#C9952B}
+.qg{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:5px;background:var(--qg);color:#fff;font-size:10.5px;font-weight:900;margin-right:6px;vertical-align:1px;flex-shrink:0}
+.qintro{display:grid;grid-template-columns:1.2fr 1fr;gap:12px;margin-bottom:14px}
+.qbox{border:1px solid var(--line);border-radius:16px;padding:14px 16px;background:var(--canvas);min-width:0}
+.qbox h6{margin:0 0 8px;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:800}
+.qbox ul.qs{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:13px}
+.qbox ul.qs label{display:grid;grid-template-columns:18px 1fr;gap:6px;cursor:pointer}
+.qbox ul.qs input{margin-top:3px;accent-color:var(--coral);width:15px;height:15px}
+.qbox ul.qs input:checked + span{text-decoration:line-through;color:var(--muted)}
+.qrecap{background:color-mix(in srgb,var(--lime-soft) 60%,var(--canvas))}
+.qrecap p{font-size:13px;line-height:1.55;font-style:italic}
+.qleg{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:var(--muted)}
+.qleg span{display:inline-flex;align-items:center}
+@media (max-width:900px){.qintro{grid-template-columns:1fr}}
+</style>
 <div class="canvas">
   <div class="wrap">
     <nav class="nav" aria-label="Điều hướng">
@@ -907,7 +924,7 @@ function detailTable(m){
   const src=r=>m.src.filter(s=>r[2][s]).map(s=>{const t=r[2][s];const lab=SHORT[s].split(' ')[0];const add=t[0]==='~';const b=(t.match(/^·?\s*(B[\d–a-c]+(?:\s\([^)]*\))?)/)||[])[1];return `<span class="srcp${add?' add':''}">${lab} ${add?'bổ sung':(b||'· trong bước khác')}</span>`}).join('');
   let qn=0;
   const body=rows.map((r,i)=>{const d=det[i]||["",[],[],[],[]];
-    const qs=d[4].map(q=>{qn++;const key=m.id+'-'+i+'-'+q.length+'-'+q.slice(0,12);const id='q-'+m.id+'-'+i+'-'+qn;return `<li><label for="${id}"><input type="checkbox" id="${id}" data-k="${key}" ${asked[key]?'checked':''}> <span>${q}</span></label></li>`}).join('');
+    const qs=(QUEST[m.id][i]||[]).map(([g,q])=>{qn++;const key='v2-'+m.id+'-'+i+'-'+q.slice(0,20);const id='q-'+m.id+'-'+i+'-'+qn;return `<li><label for="${id}"><input type="checkbox" id="${id}" data-k="${key}" ${asked[key]?'checked':''}> <span><b class="qg" style="--qg:var(${QG[g][1]})" title="${QG[g][0]}">${g}</b>${q}</span></label></li>`}).join('');
     return `<article class="dcard" style="--rc:var(${PH[r[0]][1]})">
       <header><span class="dt-ph">${PH[r[0]][0]}</span><h5>${r[1]}</h5><div class="dwho"><span>Ai làm</span>${d[0]}</div><div class="srcs"><span class="srcl">Bước gốc</span>${src(r)}</div></header>
       <div class="dgrid">
@@ -916,13 +933,73 @@ function detailTable(m){
         <section class="dt-note"><h6>Lưu ý</h6>${li(d[3])}</section>
         <section class="dt-ask"><h6>Câu hỏi khảo sát</h6>${qs?`<ul class="qs">${qs}</ul>`:'<span class="dt-none">Không có</span>'}</section>
       </div></article>`}).join('');
-  return `<div class="dlist">${body}</div><p class="dt-count" id="dtc"></p>`;
+  const op=(OPENQ[m.id]||[]).map(([g,q],j)=>{const key='v2-'+m.id+'-open-'+j;const id='qo-'+m.id+'-'+j;return `<li><label for="${id}"><input type="checkbox" id="${id}" data-k="${key}" ${asked[key]?'checked':''}> <span><b class="qg" style="--qg:var(${QG[g][1]})" title="${QG[g][0]}">${g}</b>${q}</span></label></li>`}).join('');
+  const recap=rows.map(r=>r[1].replace(/^Bổ sung · /,'')).filter(x=>!/^B\d+\s*Chờ KH/.test('')).join(' → ');
+  const legend=Object.entries(QG).map(([k,v])=>`<span><b class="qg" style="--qg:var(${v[1]})">${k}</b>${v[0]}</span>`).join('');
+  return `<div class="qintro">
+     <div class="qbox"><h6>Hỏi đầu buổi · chốt phạm vi trước khi đi từng bước</h6><ul class="qs">${op}</ul></div>
+     <div class="qbox qrecap"><h6>Chốt cuối · đọc lại cho khách xác nhận</h6><p>"Em đọc lại luồng: ${recap}. Đúng không ạ? Có bước nào bên mình làm mà em chưa ghi không?"</p></div>
+     <div class="qleg">${legend}</div>
+   </div><div class="dlist">${body}</div><p class="dt-count" id="dtc"></p>`;
 }
 function bindAsked(){
-  const upd=()=>{const all=panel.querySelectorAll('.dt-ask input');const done=[...all].filter(x=>x.checked).length;const el=panel.querySelector('#dtc');if(el)el.textContent=`Đã hỏi ${done}/${all.length} câu trong workflow này. Dấu tick chỉ lưu trên trình duyệt của bạn.`};
-  panel.querySelectorAll('.dt-ask input').forEach(cb=>cb.addEventListener('change',()=>{const o=loadAsked();if(cb.checked)o[cb.dataset.k]=1;else delete o[cb.dataset.k];saveAsked(o);upd()}));
+  const upd=()=>{const all=panel.querySelectorAll('.dt-ask input, .qbox input');const done=[...all].filter(x=>x.checked).length;const el=panel.querySelector('#dtc');if(el)el.textContent=`Đã hỏi ${done}/${all.length} câu trong workflow này. Dấu tick chỉ lưu trên trình duyệt của bạn.`};
+  panel.querySelectorAll('.dt-ask input, .qbox input').forEach(cb=>cb.addEventListener('change',()=>{const o=loadAsked();if(cb.checked)o[cb.dataset.k]=1;else delete o[cb.dataset.k];saveAsked(o);upd()}));
   upd();
 }
+
+
+/* ===== Câu hỏi khảo sát tập trung lấy thông tin thiết lập ===== */
+const QG={A:["Ưu tiên & tần suất","--qa"],B:["Luồng & phân quyền","--qb"],C:["Ngoại lệ","--qc"],D:["Người dùng & quy mô","--qd"],E:["Điểm nghẽn & mẫu thật","--qe"]};
+const OPENQ={
+ m1:[["A","Mỗi tháng mở bao nhiêu TK? Trong đó online, nước ngoài, tổ chức bao nhiêu? Đóng TK bao nhiêu?"],["D","Mỗi vai trò có bao nhiêu người: NV MG, NV DV, PT DV, NV BP.LK, kế toán, GĐ chi nhánh?"],["E","Hiện hồ sơ chậm nhất ở bước nào: chờ hồ sơ gốc, chờ TGĐ ký hay chờ VSDC?"]],
+ m2:[["A","Mỗi tháng bao nhiêu phiếu? Dịch vụ nào được đăng ký/hủy nhiều nhất?"],["D","Bao nhiêu NV DV và PT DV xử lý phiếu dịch vụ?"]],
+ m3:[["A","Mỗi tháng bao nhiêu hồ sơ cho từng loại: lưu ký, rút, chuyển đi, nhận về, phong tỏa, giải tỏa?"],["D","Bao nhiêu người ở P.MG, P.DV chi nhánh, P.DV&QLSP tham gia các nghiệp vụ này?"],["E","Hiện vướng nhất ở đâu: chuyển hồ sơ gốc, chờ TGĐ duyệt hay chờ VSDC?"]],
+ m4:[["A","Mỗi ngày bao nhiêu lệnh ứng rút tại quầy, qua tổng đài, online không dùng UTTĐ?"],["D","Bao nhiêu người tham gia: NV BP DV trực tổng đài, NV DV/MG tại quầy, NV KT?"],["E","Khách đang phải chờ bao lâu để nhận tiền, chờ lâu nhất ở bước nào?"]]
+};
+const QUEST={
+ m1:[
+  [["B","Ai được tạo phiếu mở TK: chỉ NV MG, hay cả NV DV hội sở và chi nhánh?"],["C","Hồ sơ còn thiếu giấy tờ thì vẫn tạo phiếu rồi bổ sung sau, hay phải đủ mới tạo?"],["B","Thông tin trên Phiếu thông tin nội bộ (MG giới thiệu, nơi công tác, nguồn KH) có cần là trường bắt buộc không?"],["E","Cho em xin 1 bộ HĐ mở TK đã điền thật (cá nhân và tổ chức) để lấy đúng trường cần nhập."]],
+  [["B","Ai nhận việc theo dõi HĐ giấy của KH online: NV DV hội sở hay MG phụ trách?"],["C","Quá 7 ngày làm việc KH chưa gửi HĐ giấy thì xử lý sao: nhắc, khóa TK hay hủy?"]],
+  [["B","KH nước ngoài ở chi nhánh thì GĐ CN ký, ở hội sở thì TGĐ/NĐUQ ký, đúng không ạ? NĐUQ cụ thể là ai?"],["C","TGĐ đi vắng thì ai ký thay?"]],
+  [["B","BP.LK có mấy người nhận hồ sơ MSGD? Giao xoay vòng hay một người phụ trách?"],["C","VSDC yêu cầu bổ sung thì quay lại MG xin KH, hay BP.LK tự bổ sung?"],["E","Thường mất bao nhiêu ngày để có GCN MSGD? (để đặt SLA)"]],
+  [["B","NV DV nào khai Flex: chia theo chi nhánh hay ai nhận trước làm trước?"],["B","PT DV duyệt có mấy người? Trả lại thì về NV DV hay về MG?"],["C","KH xin số TK riêng thì có cần ai duyệt không?"]],
+  [["B","Mở TK cá nhân trong nước có cần TGĐ ký từng HĐ, hay NĐUQ (trưởng phòng DV) ký là đủ?"],["C","Có khi nào TGĐ từ chối mở TK không? Lý do thường gặp?"],["C","TGĐ đi vắng thì ai ký thay?"]],
+  [["B","Bên kế toán ai nhận việc khai TK thụ hưởng, ai duyệt?"],["C","Người thụ hưởng khác chủ TK thì vẫn đi bước này, hay chuyển qua quy trình TK chuyên dụng?"]],
+  [["B","Bước kích hoạt trên VSDC do BP.LK hay P.DV&QLSP làm? (quy trình 2023 và 2026 ghi khác nhau)"],["A","Mỗi ngày gửi danh sách mở TK mấy lần?"],["C","Xong sau 17h thì sang ngày sau. Có cần hệ thống tự dời hạn không?"]],
+  [["B","Hồ sơ tất toán của KH chi nhánh có bắt buộc GĐ CN ký nháy không?"]],
+  [["B","Tất toán ai duyệt cuối: TGĐ hay thành viên BLĐ khác?"],["C","TK còn tiền, còn CK hoặc còn dư nợ thì xử lý trước bằng quy trình nào?"],["E","Cho em xin mẫu giấy đề nghị tất toán và quy trình tất toán đang dùng."]],
+  [["C","Có khi nào hủy mapping xong KH đổi ý, không đóng TK nữa không?"]],
+  [["C","VSDC từ chối đóng TK thì quay lại bước nào, ai xử lý?"]],
+  [["B","Xong rồi thì báo cho MG/KH bằng cách nào? Có cần hệ thống tự gửi thông báo không?"],["E","Hồ sơ đang đánh số theo quy tắc nào? (để cài mã phiếu tự động)"]]],
+ m2:[
+  [["B","Ai được tạo phiếu dịch vụ: MG, NV DV, hay KH tự đăng ký online?"],["E","Cho em xin 1 phiếu 02A đã điền thật."]],
+  [["B","NV DV hội sở khai báo hết, hay chi nhánh tự khai?"]],
+  [["B","PT DV duyệt có mấy người? Trả lại thì về ai?"]],
+  [["B","Phiếu dịch vụ có bắt buộc TGĐ/NĐUQ ký, hay PT DV duyệt là xong?"],["C","Hủy dịch vụ có cần ký giống đăng ký không?"]],
+  [["B","Có cần gắn phiếu vào hồ sơ mở TK của KH để tra cứu không?"]]],
+ m3:[
+  [["B","Ai được tạo yêu cầu cho từng loại: MG tạo hết, hay phong tỏa/chuyển khoản chỉ P.DV&QLSP tạo?"],["C","Một yêu cầu có thể gồm nhiều mã CK không?"],["E","Cho em xin mỗi loại 1 bộ hồ sơ thật đã làm xong (BM.02, BM.03, BM.01, 17/LK…)."]],
+  [["B","Hồ sơ của KH chi nhánh có bắt buộc GĐ CN ký nháy ở mọi loại không?"],["E","Hồ sơ gốc từ chi nhánh về hội sở mất bao lâu? (để đặt SLA)"]],
+  [["B","Ai ở P.DV&QLSP nhận kiểm tra: một người hay chia theo loại nghiệp vụ?"],["C","Có gom nhiều KH vào một Mẫu 04/LK và một biên bản không? Gom theo ngày hay theo mã CK?"],["C","Hồ sơ thiếu thì trả về MG, hay P.DV&QLSP tự liên hệ KH?"]],
+  [["B","Loại nào bắt buộc TGĐ duyệt, loại nào trưởng phòng duyệt là đủ?"],["C","TGĐ vắng thì ai duyệt thay?"]],
+  [["B","NV thực hiện và PT duyệt giao dịch trên Flex là ai? Có tách theo loại nghiệp vụ không?"]],
+  [["B","Ai đi nộp hồ sơ cho VSDC, nộp vào lúc nào trong ngày?"],["C","Biên bản giao nhận có dùng cho lưu ký không?"]],
+  [["B","BM.01 cho TVLK nhận: P.DV&QLSP gửi, hay MG đưa KH tự mang qua?"]],
+  [["C","VSDC từ chối thì quay lại bước nào, ai xử lý?"],["E","Từ lúc gửi tới lúc VSDC xác nhận thường mất bao lâu?"]],
+  [["B","Ai báo KH đến TCPH nhận sổ: MG gọi, hay hệ thống tự gửi email?"]],
+  [["E","Hồ sơ đang đánh số theo quy tắc nào?"]]],
+ m4:[
+  [["C","Lệnh online không dùng UTTĐ có cần tạo phiếu trên hệ thống không, hay chỉ quầy và tổng đài?"],["B","Với lệnh online, KT in ĐN và PT KT ký là xong, có cần thêm ai không?"]],
+  [["B","Tổng đài do mấy NV BP DV trực? Ai nghe máy thì người đó làm, hay giao lại?"],["C","KH trả lời sai thì có cần ghi lại lần từ chối trên hệ thống không?"]],
+  [["B","Tại quầy NV DV hay NV MG thao tác Flex? Hay ai tiếp nhận người đó làm?"]],
+  [["B","PT phòng nào ký: PT DV, PT MG, hay theo người tiếp nhận?"],["C","Số tiền lớn có cần thêm cấp duyệt không? Ngưỡng bao nhiêu?"],["E","Cho em xin 1 ĐN.UTTBCK thật đã duyệt (tại quầy và qua tổng đài)."]],
+  [["B","Ở chi nhánh có bắt buộc GĐ CN ký không?"],["C","Có chấp nhận scan + duyệt trên hệ thống thay cho fax không?"]],
+  [["B","NV KT nào nhận việc: chia theo loại TK hay theo ca?"],["E","Từ lúc KT nhận ĐN tới lúc chuyển xong thường bao lâu? (để đặt SLA theo phút)"]],
+  [["B","Ai xác nhận đã thu hồi đủ mỗi ngày?"]],
+  [["B","Ai quyết định bán CK để thu hồi?"],["C","MG có bao lâu để liên hệ KH trước khi FNS bán CK?"]],
+  [["B","ĐN gốc do KT lưu hay DV lưu?"]]]
+};
 
 /* ===================== renderer ===================== */
 const VL='<div class="vl"></div>';
