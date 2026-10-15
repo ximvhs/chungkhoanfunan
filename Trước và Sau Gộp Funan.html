@@ -1,0 +1,768 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Trước và Sau Gộp Funan</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: khung salmon bao quanh một canvas trắng có lưới ô vuông, giống ảnh mẫu; các khối nội dung xếp dọc theo câu chuyện: hiểu → thực tế → giấy tờ → workflow → câu hỏi */
+:root{
+  --frame:#E9A486; --canvas:#FFFFFF; --paper:#F5EEE4; --ink:#1E1C1A; --muted:#6E6761;
+  --line:#E9E4DE; --grid:#EFEBE6; --lime:#A9C83B; --lime-soft:#E6F0C4; --lime-ink:#2C3608;
+  --coral:#EE5637; --coral-soft:#FCE1DA; --lav:#EEEDFB; --lav-ink:#3D3A7A; --dark:#262321; --on-dark:#F7F3EE;
+  --f-display:"Be Vietnam Pro","Segoe UI",system-ui,sans-serif;
+  --f-body:"Be Vietnam Pro","Segoe UI",system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --frame:#5A3326; --canvas:#181716; --paper:#26221F; --ink:#F2EEE9; --muted:#A79F98;
+  --line:#34302C; --grid:#211F1D; --lime:#B6D44C; --lime-soft:#2E3714; --lime-ink:#E4F2B4;
+  --coral:#F2694C; --coral-soft:#3E211A; --lav:#26253A; --lav-ink:#C9C6F5; --dark:#0E0D0C; --on-dark:#F2EEE9; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --frame:#5A3326; --canvas:#181716; --paper:#26221F; --ink:#F2EEE9; --muted:#A79F98;
+  --line:#34302C; --grid:#211F1D; --lime:#B6D44C; --lime-soft:#2E3714; --lime-ink:#E4F2B4;
+  --coral:#F2694C; --coral-soft:#3E211A; --lav:#26253A; --lav-ink:#C9C6F5; --dark:#0E0D0C; --on-dark:#F2EEE9; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--frame);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px}
+.canvas{max-width:1240px;margin:0 auto;background:var(--canvas);position:relative;overflow:hidden}
+.wrap{padding-inline:clamp(18px,4vw,56px)}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;letter-spacing:-.02em}
+h2{font-size:clamp(28px,4.2vw,46px);font-weight:900;text-transform:uppercase;line-height:1.02}
+h3{font-size:19px;font-weight:800;line-height:1.25}
+p{margin:0}
+.mono{font-family:var(--f-mono);font-size:.86em}
+a{color:inherit}
+
+/* nav */
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:22px;flex-wrap:wrap;position:relative;z-index:2}
+.brand{font-weight:900;font-size:22px;letter-spacing:.02em}
+.brand small{display:block;font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.08em}
+.nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.nav ul a{text-decoration:none;font-weight:500;font-size:14px}
+.nav ul a:hover{text-decoration:underline}
+.pill-out{border:1.5px solid var(--ink);border-radius:999px;padding:9px 20px;font-weight:700;font-size:14px;text-decoration:none}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.05fr 1fr;gap:28px;padding-block:24px 56px;position:relative}
+.gridbg{background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:44px 44px}
+.hero .right{position:relative;min-height:470px}
+.tag{display:inline-flex;align-items:center;gap:8px;background:var(--lime);color:var(--lime-ink);font-weight:700;font-size:13px;padding:6px 12px;border-radius:7px}
+.hero h1{font-size:clamp(40px,6.4vw,74px);font-weight:900;line-height:.98;text-transform:uppercase;margin-block:20px 18px}
+.hero .lead{font-size:17px;max-width:52ch;color:var(--ink)}
+.cta{display:flex;gap:18px;align-items:center;margin-top:26px;flex-wrap:wrap}
+.btn-dark{background:var(--ink);color:var(--canvas);border-radius:999px;padding:13px 26px;font-weight:700;text-decoration:none}
+.btn-ghost{display:inline-flex;align-items:center;gap:10px;font-weight:600;text-decoration:none}
+.btn-ghost i{width:32px;height:32px;border:1.5px solid var(--ink);border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:11px}
+.facts{margin-top:34px;border-top:1px solid var(--line)}
+.fact{display:grid;grid-template-columns:44px 1fr auto;gap:14px;align-items:center;padding-block:14px;border-bottom:1px solid var(--line)}
+.fact .av{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:13px}
+.fact .num{background:var(--paper);border-radius:999px;padding:4px 12px;font-weight:700;font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* hero collage */
+.c-card{position:absolute;border-radius:18px}
+.c-paper{left:6%;top:4%;width:62%;aspect-ratio:1/0.92;max-width:100%;background:var(--paper);padding:18px;overflow:hidden}
+.c-start{left:0;top:44%;width:84px;height:84px;border-radius:50%;background:var(--coral);color:#fff;display:grid;place-items:center;font-weight:700;box-shadow:0 14px 30px -10px var(--coral);text-decoration:none;text-align:center;font-size:13px;line-height:1.2}
+.c-badge{right:4%;top:40%;width:116px;height:116px;border-radius:50%;background:var(--dark);color:var(--on-dark);display:grid;place-items:center;text-align:center;transform:rotate(-12deg)}
+.c-badge b{font-size:34px;line-height:1;display:block}
+.c-badge span{font-size:12px}
+.c-darkcard{left:18%;bottom:0;width:40%;background:var(--dark);color:var(--on-dark);padding:16px;min-height:200px}
+.c-lav{right:2%;bottom:6%;width:42%;background:var(--lav);padding:16px}
+.c-lav h4,.c-darkcard h4{margin:0 0 6px;font-size:15px;font-weight:700;line-height:1.25}
+.dots{position:absolute;right:22%;top:6%;display:grid;gap:8px}
+.dots i{width:12px;height:12px;border-radius:50%;background:var(--ink);display:block}
+.xmark{position:absolute;font-weight:900;font-size:22px}
+
+/* sections */
+section{padding-block:64px;border-top:1px solid var(--line)}
+.sec-head{display:grid;grid-template-columns:auto 1fr;gap:10px 28px;align-items:end;margin-bottom:34px}
+.sec-head .k{font-family:var(--f-mono);font-size:13px;color:var(--muted);grid-column:1/-1;letter-spacing:.06em;text-transform:uppercase}
+.sec-head p{color:var(--muted);max-width:60ch;font-size:15px}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;border-radius:999px;padding:3px 10px;white-space:nowrap}
+.chip.fact-c{background:var(--ink);color:var(--canvas)}
+.chip.sug{background:var(--lime);color:var(--lime-ink)}
+.chip.ask{background:var(--coral);color:#fff}
+
+/* analogy */
+.analogy{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1.5px solid var(--ink);border-radius:20px;overflow:hidden}
+.an{padding:24px;min-width:0;position:relative}
+.an+.an{border-left:1.5px solid var(--ink)}
+.an .lbl{font-family:var(--f-mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.an h3{margin-block:6px 8px;font-size:22px}
+.an .eq{display:inline-block;margin-top:10px;font-size:13px;font-weight:600;padding:4px 10px;border-radius:8px}
+.an:nth-child(1){background:var(--paper)}
+.an:nth-child(2){background:var(--lav)}
+.an:nth-child(3){background:var(--dark);color:var(--on-dark)}
+.an:nth-child(3) .lbl{color:#bdb5ad}
+
+.glossary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:22px}
+.gl{border:1px solid var(--line);border-radius:14px;padding:14px;min-width:0;background:var(--canvas)}
+.gl b{font-family:var(--f-mono);font-size:13px;display:block}
+.gl span{font-size:13px;color:var(--muted);line-height:1.45;display:block;margin-top:4px}
+
+.state-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:22px}
+.st{border-radius:14px;padding:14px;min-width:0}
+.st b{display:block;font-size:20px;font-weight:900;font-family:var(--f-mono)}
+.st span{font-size:13px;line-height:1.4;display:block}
+
+/* diagram */
+.diagram{overflow-x:auto;border:1px solid var(--line);border-radius:20px;background:var(--canvas)}
+.diagram svg{display:block;min-width:900px;width:100%;height:auto}
+.svg-t{font-family:var(--f-body);fill:var(--ink)}
+.svg-m{font-family:var(--f-body);fill:var(--muted)}
+
+/* ops cards */
+.ops{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+.op{border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:12px;min-width:0;border:1px solid var(--line)}
+.op .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.op .ico{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;flex-shrink:0}
+.op .story{font-size:14px;background:var(--paper);border-radius:12px;padding:12px;line-height:1.5}
+.op .story b{font-weight:700}
+.op .flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px;font-weight:600}
+.op .flow span{background:var(--canvas);border:1px solid var(--line);border-radius:999px;padding:3px 9px}
+.op .flow em{font-style:normal;color:var(--muted)}
+.op .meta{font-size:12px;color:var(--muted);margin-top:auto;border-top:1px dashed var(--line);padding-top:10px}
+.op.dark{background:var(--dark);color:var(--on-dark);border-color:var(--dark)}
+.op.dark .story{background:#3a3532;color:var(--on-dark)}
+.op.dark .flow span{background:#3a3532;border-color:#4a4440;color:var(--on-dark)}
+.op.dark .meta{color:#bdb5ad;border-color:#4a4440}
+.op.lav{background:var(--lav)}
+.op.lav .story{background:var(--canvas)}
+
+/* two lanes */
+.lanes{display:grid;grid-template-columns:150px 1fr;gap:0;border:1.5px solid var(--ink);border-radius:20px;overflow:hidden;margin-top:28px}
+.lanes > div{padding:16px;min-width:0}
+.lane-h{font-weight:800;font-size:14px;border-bottom:1px solid var(--line)}
+.lane-b{display:flex;gap:8px;flex-wrap:wrap;align-items:center;border-bottom:1px solid var(--line)}
+.lanes > div:nth-last-child(-n+2){border-bottom:0}
+.lane-h.paper{background:var(--paper)} .lane-h.sys{background:var(--lime-soft)} .lane-h.vsdc{background:var(--dark);color:var(--on-dark)}
+.node{border-radius:10px;padding:7px 11px;font-size:13px;font-weight:600;border:1px solid var(--line);background:var(--canvas)}
+.node small{display:block;font-weight:500;color:var(--muted);font-size:11px}
+.arrow{color:var(--muted);font-weight:700}
+
+/* docs */
+.doc-summary{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:16px}
+.ds{border-radius:20px;padding:22px;min-width:0}
+.ds b.big{font-size:56px;font-weight:900;line-height:1;display:block;font-variant-numeric:tabular-nums}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-block:26px 16px}
+.filters button{font:inherit;font-size:13px;font-weight:600;border:1.5px solid var(--ink);background:var(--canvas);color:var(--ink);border-radius:999px;padding:7px 14px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--canvas)}
+.filters button:focus-visible,.tabs button:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+.docs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.doc{border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0;background:var(--canvas);position:relative}
+.doc .code{font-family:var(--f-mono);font-size:12px;font-weight:700;background:var(--paper);border-radius:6px;padding:3px 8px;align-self:flex-start}
+.doc h4{margin:0;font-size:15px;line-height:1.3}
+.doc dl{display:grid;grid-template-columns:auto 1fr;gap:3px 10px;margin:0;font-size:12.5px}
+.doc dt{color:var(--muted)}
+.doc dd{margin:0;font-weight:500}
+.doc .verdict{margin-top:auto;font-size:12.5px;font-weight:700;border-radius:10px;padding:8px 10px}
+.v-print{background:var(--coral-soft);color:var(--coral)}
+.v-scan{background:var(--lav);color:var(--lav-ink)}
+.doc .owner{position:absolute;right:14px;top:14px;font-size:11px;font-weight:700;color:var(--muted)}
+
+/* workflows */
+.wf-compare{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:34px}
+.cmp{border-radius:18px;padding:18px;border:1px solid var(--line);min-width:0}
+.cmp h4{margin:0 0 8px;font-size:15px}
+.cmp ul{margin:0;padding-left:18px;font-size:13.5px}
+.cmp .pro{color:var(--ink)} .cmp li{margin-bottom:3px}
+.cmp.pick{border:2px solid var(--ink);background:var(--lime-soft)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.tabs button{font:inherit;font-weight:700;font-size:14px;border:0;background:var(--paper);color:var(--ink);border-radius:12px;padding:10px 16px;cursor:pointer;display:flex;gap:8px;align-items:center}
+.tabs button .n{font-family:var(--f-mono);font-size:12px;opacity:.6}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--canvas)}
+.wf-top{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;margin-bottom:18px}
+.wf-intro{background:var(--dark);color:var(--on-dark);border-radius:20px;padding:22px;min-width:0}
+.wf-intro h3{font-size:26px;font-weight:900;text-transform:uppercase}
+.wf-intro p{color:#d9d2cb;font-size:14px;margin-top:8px}
+.kv{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:16px}
+.kv div{background:#3a3532;border-radius:12px;padding:10px 12px;font-size:13px}
+.kv div span{display:block;color:#bdb5ad;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+.wf-prints{background:var(--lav);border-radius:20px;padding:22px;min-width:0}
+.wf-prints h4{margin:0 0 10px;font-size:15px}
+.wf-prints ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.wf-prints li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;background:var(--canvas);border-radius:10px;padding:8px 10px}
+.wf-prints li .mono{font-weight:700;white-space:nowrap}
+.pipe{display:flex;gap:0;overflow-x:auto;padding-bottom:6px;margin-bottom:20px}
+.pst{flex:1 0 128px;position:relative;padding:12px 18px 12px 12px;min-width:128px}
+.pst .bub{border-radius:14px;padding:10px 12px;height:100%;border:1.5px solid transparent}
+.pst .bub b{font-family:var(--f-mono);font-size:12px;display:block;opacity:.7}
+.pst .bub span{font-size:13px;font-weight:700;line-height:1.3;display:block}
+.pst .bub small{font-size:11px;display:block;margin-top:4px;opacity:.85}
+.pst::after{content:"";position:absolute;right:4px;top:50%;width:10px;height:10px;border-top:2px solid var(--muted);border-right:2px solid var(--muted);transform:translateY(-50%) rotate(45deg)}
+.pst:last-child::after{display:none}
+.pst.cond .bub{border-style:dashed;border-color:var(--ink)}
+.r-kh{background:var(--paper);color:var(--ink)}
+.r-mg{background:var(--lav);color:var(--lav-ink)}
+.r-gdcn{background:var(--lav);color:var(--lav-ink);box-shadow:inset 0 0 0 2px var(--lav-ink)}
+.r-nv{background:var(--lime-soft);color:var(--lime-ink)}
+.r-pt{background:var(--lime);color:var(--lime-ink)}
+.r-tgd{background:var(--coral);color:#fff}
+.r-vsdc{background:var(--dark);color:var(--on-dark)}
+.r-ext{background:var(--canvas);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--muted)}
+.legend{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;font-size:12px}
+.legend span{border-radius:999px;padding:3px 10px;font-weight:600}
+
+.tbl-wrap{overflow-x:auto;border-radius:6px;border:1px solid #c9d6e8}
+table.proc{border-collapse:collapse;width:100%;min-width:1120px;font-size:13px}
+table.proc caption{caption-side:top;text-align:left;font-weight:800;font-size:15px;padding:10px 12px;background:#3B82C4;color:#fff}
+table.proc th{background:#D6E6F5;color:#1E2A3A;font-weight:700;padding:8px;border:1px solid #c9d6e8;text-align:center;vertical-align:middle}
+table.proc th small{display:block;font-weight:400;font-size:11px}
+table.proc td{border:1px solid var(--line);padding:9px;vertical-align:top;line-height:1.45}
+table.proc td.c{text-align:center;font-variant-numeric:tabular-nums}
+table.proc td ul{margin:0;padding-left:16px}
+table.proc tr.cond td{background:var(--paper)}
+table.proc .who{display:flex;flex-direction:column;gap:4px;align-items:flex-start}
+table.proc .who span{border-radius:999px;padding:2px 9px;font-size:11.5px;font-weight:700;white-space:nowrap}
+.fields-wrap{margin-top:22px;display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.fg{border:1px solid var(--line);border-radius:16px;overflow:hidden;min-width:0}
+.fg h5{margin:0;padding:10px 14px;font-size:14px;background:var(--paper)}
+.fg table{width:100%;border-collapse:collapse;font-size:12.5px}
+.fg td{padding:7px 14px;border-top:1px solid var(--line);vertical-align:top}
+.fg td:nth-child(2){color:var(--muted);white-space:nowrap}
+.fg td:nth-child(3){text-align:right;white-space:nowrap}
+.req{color:var(--coral);font-weight:800}
+.wf-note{margin-top:16px;border-left:4px solid var(--coral);background:var(--coral-soft);padding:12px 16px;border-radius:0 12px 12px 0;font-size:14px}
+
+/* questions */
+.qgrid{display:grid;grid-template-columns:1.25fr 1fr;gap:20px}
+.qlist{counter-reset:q;list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.qlist li{counter-increment:q;display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start;border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:14px}
+.qlist li::before{content:counter(q);width:30px;height:30px;border-radius:50%;background:var(--ink);color:var(--canvas);display:grid;place-items:center;font-weight:800;font-size:13px}
+.qlist li small{display:block;color:var(--muted);font-size:12.5px;margin-top:3px}
+.issues{background:var(--dark);color:var(--on-dark);border-radius:20px;padding:22px;min-width:0}
+.issues h3{margin-bottom:12px}
+.issues ul{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.issues li{background:#3a3532;border-radius:12px;padding:10px 12px;font-size:13.5px}
+.issues li b{color:#FFB39F}
+footer{padding-block:28px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+@media (max-width:1000px){
+  .hero{grid-template-columns:1fr}
+  .ops,.docs,.wf-compare{grid-template-columns:repeat(2,1fr)}
+  .glossary{grid-template-columns:repeat(2,1fr)}
+  .doc-summary,.wf-top,.qgrid{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .analogy{grid-template-columns:1fr}
+  .an+.an{border-left:0;border-top:1.5px solid var(--ink)}
+  .ops,.docs,.wf-compare,.fields-wrap,.state-strip{grid-template-columns:1fr}
+  .glossary{grid-template-columns:1fr}
+  .lanes{grid-template-columns:1fr}
+  .nav ul{display:none}
+  .hero .right{min-height:520px}
+  .c-paper{width:80%}
+  .c-darkcard{left:0;width:52%}
+  .c-lav{width:46%}
+  .sec-head{grid-template-columns:1fr}
+  .fact{grid-template-columns:44px 1fr}
+  .fact .num{display:none}
+}
+@media (prefers-reduced-motion:no-preference){
+  .c-start{transition:transform .2s} .c-start:hover{transform:scale(1.06)}
+  .c-badge{animation:spin 18s linear infinite alternate}
+  @keyframes spin{from{transform:rotate(-12deg)}to{transform:rotate(8deg)}}
+}
+</style>
+<style>
+:root{--wire:#B9C3CF;--navy:#17324F;--green-soft:#E4F2DF;--green-ink:#2E6A28;--green-line:#9CCB91;--red-soft:#FCE4E0;--red-ink:#B8371F;--blue-soft:#E2ECFA;--blue-ink:#2A55A0;--node:#FFFFFF}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--wire:#4A5360;--navy:#20466E;--green-soft:#1E3220;--green-ink:#A9DDA0;--green-line:#3F6E3A;--red-soft:#3D1F1A;--red-ink:#F4A291;--blue-soft:#1C2A40;--blue-ink:#A9C6F2;--node:#211F1D}}
+:root[data-theme="dark"]{--wire:#4A5360;--navy:#20466E;--green-soft:#1E3220;--green-ink:#A9DDA0;--green-line:#3F6E3A;--red-soft:#3D1F1A;--red-ink:#F4A291;--blue-soft:#1C2A40;--blue-ink:#A9C6F2;--node:#211F1D}
+
+.intro{display:grid;grid-template-columns:1.2fr 1fr;gap:20px;padding-block:8px 28px}
+.intro h1{font-size:clamp(34px,5vw,58px);font-weight:900;line-height:1;text-transform:uppercase;margin-block:14px 14px}
+.intro p{font-size:15.5px;max-width:58ch}
+.changes{background:var(--paper);border-radius:18px;padding:18px;min-width:0}
+.changes h4{margin:0 0 8px;font-size:15px}
+.changes ul{margin:0;padding-left:18px;font-size:13.5px;display:grid;gap:4px}
+.blocks{display:flex;flex-wrap:wrap;gap:8px;margin-block:4px 22px}
+.blocks span{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:4px 11px 4px 5px;background:var(--canvas)}
+.ic{width:20px;height:20px;border-radius:6px;display:inline-grid;place-items:center;font-size:11px;font-weight:800;flex-shrink:0}
+.ic.start{background:var(--navy);color:#fff}.ic.form{background:#E9E1FB;color:#5B3BB0}.ic.step{background:var(--lav);color:var(--lav-ink)}.ic.ap{background:var(--lime);color:var(--lime-ink)}.ic.dec{background:var(--coral);color:#fff}.ic.wait{background:var(--blue-soft);color:var(--blue-ink)}.ic.noti{background:var(--paper);color:var(--ink);border:1px solid var(--line)}.ic.end{background:var(--green-soft);color:var(--green-ink)}
+
+.canvas-wrap{border:1px solid var(--line);border-radius:20px;overflow:auto;max-height:none;background-color:var(--canvas)}
+.canvas-inner{padding:28px 24px 36px;width:max-content;min-width:100%;display:flex;justify-content:center}
+.fl{display:flex;flex-direction:column;align-items:center}
+.vl{width:2px;height:20px;background:var(--wire);position:relative;flex-shrink:0}
+.vl::after{content:"";position:absolute;bottom:-1px;left:50%;width:7px;height:7px;border-right:2px solid var(--wire);border-bottom:2px solid var(--wire);transform:translate(-50%,0) rotate(45deg)}
+.nd{width:228px;border-radius:12px;background:var(--node);border:1px solid var(--line);box-shadow:0 1px 2px rgba(0,0,0,.06);padding:9px 11px;position:relative;text-align:left}
+.nd .ty{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--muted);font-weight:600}
+.nd .tt{font-weight:800;font-size:13.5px;line-height:1.3;margin-top:5px}
+.nd .wh{font-size:11.5px;color:var(--muted);margin-top:3px;line-height:1.35}
+.nd .mt{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);border-top:1px solid var(--line);margin-top:7px;padding-top:5px}
+.nd .no{position:absolute;right:-9px;top:-9px;background:var(--ink);color:var(--canvas);font-family:var(--f-mono);font-size:10.5px;font-weight:700;border-radius:999px;padding:2px 7px}
+.nd.start{background:var(--navy);border-color:var(--navy);color:#fff}
+.nd.start .ty,.nd.start .wh{color:#cfdbe8}
+.nd.end{background:var(--green-soft);border-color:var(--green-line)}
+.nd.end .tt{color:var(--green-ink)}
+.nd.ap{border-color:var(--lime)}
+.dnode{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--coral);background:var(--coral-soft);color:var(--ink);border-radius:999px;padding:6px 14px 6px 6px;font-size:12.5px;font-weight:700;max-width:300px}
+.dec{display:flex;align-items:stretch}
+.col,.ocol{display:flex;flex-direction:column;align-items:center;padding:0 12px;position:relative}
+.bar{position:absolute;left:0;right:0;height:0;border-top:2px solid var(--wire)}
+.bar.t{top:0}.bar.b{bottom:0}
+.dec>.col:first-child>.bar{left:50%}.dec>.col:last-child>.bar{right:50%}.dec>.col:only-child>.bar{display:none}
+.stub{width:2px;height:12px;background:var(--wire);flex-shrink:0}
+.grow{flex:1;width:2px;background:var(--wire);min-height:12px}
+.lbl{font-size:11.5px;font-weight:700;border-radius:999px;padding:3px 11px;border:1.5px solid var(--wire);background:var(--canvas);white-space:nowrap;max-width:240px;overflow:hidden;text-overflow:ellipsis}
+.lbl.ok{border-color:var(--green-line);color:var(--green-ink);background:var(--green-soft)}
+.lbl.no{border-color:var(--red-ink);color:var(--red-ink);background:var(--red-soft)}
+.lbl.info{border-color:var(--blue-ink);color:var(--blue-ink);background:var(--blue-soft)}
+.skip{font-size:11.5px;color:var(--muted);border:1px dashed var(--wire);border-radius:8px;padding:4px 10px;background:var(--canvas)}
+.goto{font-size:11.5px;font-weight:700;color:var(--blue-ink);border:1.5px dashed var(--blue-ink);border-radius:10px;padding:5px 10px;background:var(--canvas)}
+.out{display:grid;grid-template-columns:1fr auto 1fr;width:max-content}
+.out>.ocol:first-child{align-items:flex-end}.out>.ocol:last-child{align-items:flex-start}
+.out>.ocol:first-child>*:not(.bar){align-self:center}.out>.ocol:last-child>*:not(.bar){align-self:center}
+
+table.trk{border-collapse:collapse;width:100%;min-width:1240px;font-size:12.8px}
+table.trk caption{caption-side:top;text-align:left;font-weight:800;font-size:15px;padding:10px 12px;background:#3B82C4;color:#fff}
+table.trk th{background:#D6E6F5;color:#1E2A3A;font-weight:700;padding:8px;border:1px solid #c9d6e8;text-align:center;vertical-align:middle}
+table.trk th.hl{background:#FFE08A;color:#3A2E00}
+table.trk td{border:1px solid var(--line);padding:8px;vertical-align:top;line-height:1.45}
+table.trk td.c{text-align:center;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.trk td.hl{background:var(--paper)}
+table.trk ul{margin:0;padding-left:15px}
+table.trk .kt{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;color:var(--muted);margin-top:4px}
+.when{font-size:11.5px;color:var(--coral);font-weight:700;display:block;margin-top:4px}
+.dropped{margin-top:16px;border-left:4px solid var(--muted);background:var(--paper);padding:12px 16px;border-radius:0 12px 12px 0;font-size:13.5px}
+@media (max-width:900px){.intro{grid-template-columns:1fr}}
+</style>
+<style>
+:root{--sky:#DDE9F7}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--sky:#1D2B3B}}
+:root[data-theme="dark"]{--sky:#1D2B3B}
+.nd.add{border:1.5px dashed var(--blue-ink)}.nd.add .no{background:var(--blue-ink);color:#fff}
+.mapbox{border:1px solid var(--line);border-radius:20px;overflow-x:auto;background:var(--canvas);padding:10px}
+.mapbox svg{display:block;min-width:820px;width:100%;height:auto}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-block:18px 30px}
+.stat{border:1px solid var(--line);border-radius:16px;padding:14px;background:var(--canvas);min-width:0}
+.stat .sl{font-size:12.5px;color:var(--muted);font-weight:600;display:block;min-height:34px}
+.stat .sv{display:flex;align-items:baseline;gap:8px;margin-top:6px;font-variant-numeric:tabular-nums;flex-wrap:wrap}
+.stat .b4{font-size:26px;color:var(--muted);font-weight:800}
+.stat .af{font-size:34px;font-weight:900}
+.stat .arr{color:var(--muted)}
+.stat .dl{font-size:12px;font-weight:800;border-radius:999px;padding:2px 8px;background:var(--paper)}
+.stat .dl.down{background:var(--green-soft);color:var(--green-ink)}
+.stat .dl.up{background:var(--coral-soft);color:var(--coral)}
+.stat small{display:block;font-size:11.5px;color:var(--muted);margin-top:4px}
+.mhead{display:grid;grid-template-columns:1.3fr 1fr;gap:18px;margin-bottom:14px}
+.gc{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gc>div{border-radius:14px;padding:12px;font-size:13px;min-width:0}
+.gc .g{background:var(--green-soft)}.gc .c{background:var(--coral-soft)}
+.gc h5{margin:0 0 6px;font-size:13.5px}.gc ul{margin:0;padding-left:16px;display:grid;gap:3px}
+.mini{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.mini div{background:var(--paper);border-radius:12px;padding:8px 12px;font-size:12px}
+.mini span{display:block;color:var(--muted)}.mini b{font-size:17px;font-variant-numeric:tabular-nums}
+.seg{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.seg button{font:inherit;font-size:13.5px;font-weight:700;border:1.5px solid var(--ink);background:var(--canvas);color:var(--ink);border-radius:999px;padding:7px 15px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--canvas)}
+.seg button:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+.vh{margin:18px 0 10px;font-size:15px}
+.bgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.bcard{border:1px solid var(--line);border-radius:16px;padding:14px;background:var(--canvas);min-width:0}
+.bcard h5{margin:0 0 10px;font-size:14px;line-height:1.3}
+.bcard ol{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.bcard li{display:grid;grid-template-columns:40px 1fr;gap:8px;align-items:start;font-size:13px;font-weight:600;padding:6px 0;border-top:1px dashed var(--line)}
+.bcard li small{display:block;font-weight:400;color:var(--muted);font-size:11.5px}
+.bn{font-family:var(--f-mono);font-size:11px;font-weight:700;background:var(--ink);color:var(--canvas);border-radius:999px;padding:2px 6px;text-align:center}
+.bn.add{background:var(--blue-ink);color:#fff}
+@media (max-width:1000px){.stats{grid-template-columns:repeat(2,1fr)}.mhead{grid-template-columns:1fr}}
+@media (max-width:560px){.stats{grid-template-columns:1fr}.gc{grid-template-columns:1fr}}
+</style>
+<div class="canvas">
+  <div class="wrap">
+    <nav class="nav" aria-label="Điều hướng">
+      <div class="brand">TRƯỚC &amp; SAU GỘP<small>FUNAN · SHEET 8 · 9 · 10</small></div>
+      <ul><li><a href="https://claude.ai/artifact/P18YwXnYZ9vR49h7yQWuTh" target="_blank" rel="noopener">Sơ đồ chi tiết 9 quy trình</a></li></ul>
+      <a class="pill-out" href="#chitiet">Xem từng workflow</a>
+    </nav>
+    <div style="padding-block:6px 20px">
+      <span class="tag">Đề xuất tinh giản · cần khách xác nhận</span>
+      <h1 style="font-size:clamp(34px,5vw,58px);font-weight:900;line-height:1;text-transform:uppercase;margin-block:14px">9 quy trình con → 4 workflow</h1>
+      <p style="font-size:15.5px;max-width:70ch">Các quy trình chạy cùng khung bước, cùng người làm, chỉ khác mẫu và mã giao dịch thì gộp lại, khác biệt chuyển thành khối Quyết định. Quy trình khác hẳn về nhịp hoặc người làm thì giữ riêng.</p>
+    </div>
+    <div class="mapbox" id="map"></div>
+    <div class="stats" id="stats"></div>
+    <h2 id="chitiet" style="font-size:clamp(24px,3.4vw,36px);margin-bottom:16px">Từng workflow: trước và sau</h2>
+    <div class="tabs" role="tablist" aria-label="Chọn workflow" id="tabs"></div>
+    <div id="panel" role="tabpanel"></div>
+  </div>
+  <div class="wrap"><footer><span>Số khối đếm tự động từ sơ đồ. "Trước" giữ đúng bước của file Excel Funan, có thêm các bước Bổ sung lấy từ quy trình gốc.</span><span>Ngày khảo sát: 16/10/2026 · Phòng DV 14:30–16:30.</span></footer></div>
+</div>
+<script>
+const TY={start:["Bắt đầu dịch vụ","▶"],form:["Biểu mẫu tùy chỉnh","▤"],step:["Bước","●"],ap:["Phê duyệt","✓"],wait:["Chờ","⏱"],noti:["Thông báo","✉"],end:["Kết thúc","■"]};
+const GTPL="GTPL bản sao có ký đối chiếu bản chính";
+const KH=["KH: họ tên, loại KH, số ĐKSH, ngày/nơi cấp, địa chỉ, SĐT","Số TK lưu ký (093…), SID","Người được ủy quyền + CCCD (nếu có)"];
+const CK=["CK: tên, mã CK, sàn, mệnh giá","Bảng CK: loại CK (1/2/7/8), số lượng"];
+const END_OK={k:"end",t:"Hoàn thành",w:"Đóng phiếu"};
+const REJ=(t)=>({l:"Từ chối",k:"no",c:[{k:"end",t:t||"Không thực hiện",w:"Báo KH lý do"}]});
+const BACK=(l,t)=>({l:l||"Cần bổ sung",k:"info",c:[{k:"goto",t:"↩ "+t}]});
+const GDCN={k:"ap",n:"+",t:"GĐ Chi nhánh ký nháy",w:"GĐ Chi nhánh",s:"2h",add:1,when:"KH chi nhánh",do:["Ký nháy hồ sơ trước khi gửi về hội sở","Duyệt trên phần mềm thay cho chuyển tay"],forms:["Đơn của KH ở B1"],fields:["Kết quả duyệt, ngày ký"]};
+const CN_DEC={k:"dec",q:"Tiếp nhận tại chi nhánh?",br:[{l:"Có",c:[GDCN]},{l:"Không",c:[]}]};
+
+/* ===================== SHEET 8 · LƯU KÝ CK ===================== */
+const S8=[
+{id:"8a",name:"Mở, đóng & quản lý TKLK",title:"8.1 Mở, đóng và quản lý tài khoản lưu ký",
+ desc:"Phần việc của P.DV&QLSP để kích hoạt hoặc đóng TK trên VSDC. Rẽ nhánh theo <b>Loại yêu cầu</b>: Mở TK / Đóng TK. Hồ sơ mở TK với khách chạy ở quy trình 9.",
+ flow:[
+  {k:"start",t:"Yêu cầu mở / đóng TKLK",w:"Người tạo: NV.DV hội sở / chi nhánh"},
+  {k:"form",n:"B1",t:"Nhận hồ sơ mở, đóng tài khoản",w:"NV.DV (hội sở/chi nhánh)",s:"0,5h",do:["Nhận hồ sơ theo quy trình mở TK hoặc quy trình tất toán TK"],forms:["Hồ sơ theo quy trình mở / tất toán TKLKCK"],fields:["Loại yêu cầu: Mở / Đóng","Đơn vị tiếp nhận",...KH]},
+  {k:"dec",q:"Loại yêu cầu?",br:[
+   {l:"Mở TK",c:[
+    {k:"step",n:"B2",t:"Gửi yêu cầu mở cho P.DV&QLSP",w:"NV.DV (hội sở/chi nhánh)",s:"Trước 17h",when:"Mở TK",do:["Xuất danh sách KH mở TK bằng RCF0017 trên Flex","Email cho P.DV&QLSP trước 17h00 hằng ngày"],forms:["Danh sách KH mở TKLKCK (Flex RCF0017)"],fields:["Ngày giờ gửi danh sách","Tệp danh sách"]},
+    {k:"step",n:"B3",t:"Gửi điện mở TK lên VSDC",w:"P.DV&QLSP",s:"Trước 17h",when:"Mở TK",do:["Gửi điện VCF0135 (MT598)","Sau 17h thì sang ngày làm việc kế tiếp","TK của tổ chức đăng ký CK: lập Mẫu 03A/LK (02 bản), trình BLĐ, gửi VSDC"],forms:["Mẫu 03A/LK (chỉ tổ chức đăng ký CK)"],fields:["Thời điểm gửi điện","Là tổ chức đăng ký CK? (→ 03A/LK)"]}]},
+   {l:"Đóng TK",c:[
+    {k:"step",n:"B2",t:"Gửi yêu cầu đóng cho P.DV&QLSP",w:"NV.DV (hội sở/chi nhánh)",s:"4–24h",when:"Đóng TK",do:["Gửi bản chính Giấy đề nghị tất toán kèm bản sao CCCD/GPKD","KH chi nhánh: GĐ chi nhánh ký nháy trước khi gửi"],forms:["Giấy đề nghị tất toán TKLKCK (bản chính)","Bản sao CCCD/GPKD/HC"],fields:["Đã nhận bản gốc + ngày","GĐ CN đã ký nháy (KH chi nhánh)","Lý do tất toán"]},
+    {k:"ap",n:"B3",t:"Trình TGĐ/BLĐ phê duyệt tất toán",w:"P.DV&QLSP → TGĐ/BLĐ",s:"4h",when:"Đóng TK",do:["Lập hồ sơ trình duyệt","Duyệt xong mới làm tiếp các bước tất toán"],forms:["Giấy đề nghị tất toán TKLKCK"],fields:["Kết quả duyệt, ý kiến"],
+     out:{L:REJ("Không tất toán"),C:"Đã duyệt"}},
+    {k:"step",n:"B3",t:"Hủy mapping tài khoản",w:"P.DV&QLSP",s:"1h",when:"Đóng TK",do:["Gửi điện hủy liên kết bằng VCF0102","Làm trước 01 ngày so với ngày gửi điện đóng"],forms:["Không có (thao tác Flex)"],fields:["Ngày hủy mapping"]}]}]},
+  {k:"step",n:"B4",t:"Hoàn tất mở, đóng TK (VSDC duyệt điện), liên kết hoặc hủy liên kết",w:"P.DV&QLSP",s:"1 ngày LV",do:["Mở: VSDC duyệt lúc 8h30, 11h00, 16h00 → mapping VCF0102 trong ngày → KH giao dịch được","Đóng: sau 01 ngày VSDC duyệt hủy mapping → gửi điện đóng 0059 (MT598)","Theo dõi màn hình 151000"],forms:["Mẫu 03A/LK có xác nhận VSDC (upload)"],fields:["Ngày VSDC duyệt","Ngày mapping / ngày gửi điện đóng","Trạng thái điện"],
+   out:{L:BACK("VSDC từ chối","Về B3"),C:"VSDC đã duyệt"}},
+  {k:"step",n:"B5",t:"Lưu hồ sơ",w:"P.DV&QLSP",s:"0,5h",do:["Mở: lưu theo quy trình mở TK; 03A/LK bản có xác nhận","Đóng: lưu giấy đề nghị tất toán + CCCD/GPKD bản sao"],forms:["Giấy đề nghị tất toán (bản chính)","CCCD/GPKD (bản sao)","Mẫu 03A/LK"],fields:["Vị trí lưu"]},
+  END_OK],
+ xl:["Excel gộp báo cáo định kỳ 07/LK-TV, 08/LK-TV vào B5. Đây là việc theo lịch hằng tháng (gửi điện 156500 ngày LV đầu tháng, nộp trong 05 ngày LV), không gắn với từng hồ sơ, nên để ngoài sơ đồ và làm công việc định kỳ.","Excel không ghi bước GĐ chi nhánh ký nháy hồ sơ tất toán; quy trình gốc có (ghi chú B2)."]},
+
+{id:"8b",name:"Lưu ký & rút lưu ký",title:"8.2 Lưu ký và rút lưu ký chứng khoán",
+ desc:"Rẽ nhánh theo <b>Loại</b>: Lưu ký (giấy → điện tử, có gửi bản cứng cho VSDC) / Rút lưu ký (điện tử → giấy, nhận Mẫu 10/LK).",
+ flow:[
+  {k:"start",t:"Yêu cầu lưu ký / rút lưu ký",w:"Người tạo: P.MG, P.DV chi nhánh"},
+  {k:"form",n:"B1",t:"Tiếp nhận yêu cầu từ khách hàng",w:"P.MG (hoặc P.DV chi nhánh)",s:"0,5h",do:["Hướng dẫn KH ký đơn","Nhận sổ/giấy CNSH bản gốc (lưu ký)","Photo GTPL, ký xác nhận đối chiếu"],forms:["BM.02 Giấy đề nghị lưu ký (02 bản)","BM.03 Giấy đề nghị rút lưu ký (02 bản)","Giấy/sổ chứng nhận sở hữu CK (bản chính)",GTPL],fields:["Loại: Lưu ký / Rút",...KH,...CK,"Số sổ/Giấy CNSHCK (lưu ký)","Bảng cổ tức CK / CP thưởng / ESOP (KH cá nhân, tính thuế)","Ngày cấp tại TCPH không khớp FNS? (checkbox)","Tệp: đơn đã ký, GTPL"]},
+  CN_DEC,
+  {k:"ap",n:"B2",t:"Kiểm tra, trình phê duyệt hồ sơ",w:"P.DV&QLSP → TGĐ/BLĐ",s:"4–8h",do:["P.DV&QLSP nhận bản gốc, kiểm tra thông tin, chữ ký","Lập Mẫu 04/LK (KH) hoặc 05/LK (tự doanh) 02 bản","TGĐ/BLĐ duyệt, ký, đóng dấu"],forms:["Mẫu 04/LK hoặc 05/LK (02 bản)","Các mẫu ở B1"],fields:["Đã nhận bản gốc + ngày","TK tự doanh? (→ 05/LK)","Kết quả duyệt, ý kiến"],
+   out:{L:REJ(),C:"Đã duyệt",R:BACK("Cần bổ sung","Về B1")}},
+  {k:"step",n:"B3",t:"Thực hiện lưu ký / rút lưu ký trên Flex, gửi điện VSDC",w:"P.DV&QLSP (NV thực hiện, PT kiểm tra, duyệt)",s:"1h",do:["Lưu ký: NV giao dịch 2240, PT duyệt VSE2241 (MT540)","Rút: NV giao dịch 2200, PT duyệt VSE2292 (MT542)","Theo dõi màn 151000, thu phí nếu có"],forms:["Không có (thao tác Flex)"],fields:["Mã GD Flex","Thời điểm gửi điện","Phí thu"]},
+  {k:"dec",q:"Loại?",br:[
+   {l:"Lưu ký",c:[{k:"step",n:"B4",t:"Gửi hồ sơ cứng cho VSDC",w:"P.DV&QLSP",s:"1 ngày LV",when:"Lưu ký",do:["Gửi cùng ngày với điện ở B3","VSDC xử lý 01 ngày LV, xác nhận bằng MT544","Ghi tăng CK trên Flex"],forms:["Mẫu 04/LK (01 bản chính)","Giấy/sổ CNSH (bản chính)","GTPL (chỉ khi thông tin không khớp TCPH)"],fields:["Ngày gửi VSDC","Ngày VSDC xác nhận","Số lượng ghi có"]}]},
+   {l:"Rút lưu ký",c:[
+    {k:"step",n:"B4",t:"Nhận Mẫu 10/LK từ VSDC",w:"P.DV&QLSP",s:"1 ngày LV",when:"Rút lưu ký",do:["Không gửi hồ sơ giấy","VSDC xác nhận bằng MT596, gửi Mẫu 10/LK","Ghi giảm CK trên Flex"],forms:["Mẫu 10/LK (nhận về, upload)"],fields:["Ngày VSDC xác nhận","Tệp Mẫu 10/LK"]},
+    {k:"noti",n:"+",t:"Báo KH đến TCPH nhận sổ",w:"P.DV&QLSP → NV.MG",s:"1h",add:1,when:"Rút lưu ký",do:["Báo NV.MG để KH liên hệ tổ chức phát hành nhận giấy/sổ CNSH"],forms:["Mẫu 10/LK"],fields:["Ngày đã báo KH"]}]}]},
+  {k:"step",n:"B5",t:"Lưu hồ sơ",w:"P.DV&QLSP",s:"0,5h",do:["Lưu bộ hồ sơ theo loại"],forms:["Mẫu 04/LK hoặc 05/LK","BM.02 hoặc BM.03","Giấy/sổ CNSH (bản sao)","GTPL","Mẫu 10/LK"],fields:["Vị trí lưu","Checklist đủ giấy"]},
+  END_OK],
+ xl:["Excel không có bước GĐ chi nhánh ký nháy và bước báo KH đến TCPH nhận sổ; cả hai có trong phần diễn giải quy trình gốc.","Excel không ghi Biên bản giao nhận ở B4 lưu ký. Cần hỏi có dùng không (tiêu đề biên bản có chữ \"lưu ký\")."]},
+
+{id:"8c",name:"Chuyển khoản & nhận CK",title:"8.3 Chuyển khoản và nhận chuyển khoản chứng khoán",
+ desc:"Rẽ nhánh theo <b>Chiều</b>: Chuyển đi (FNS → công ty CK khác, cần TGĐ duyệt) / Nhận về (công ty CK khác → FNS, không trình duyệt).",
+ flow:[
+  {k:"start",t:"Yêu cầu chuyển khoản CK",w:"Người tạo: P.MG, P.DV.CN, P.DV&QLSP"},
+  {k:"form",n:"B1",t:"Tiếp nhận yêu cầu chuyển khoản hoặc nhận chuyển khoản",w:"P.MG, P.DV.CN, P.DV&QLSP",s:"0,5h",do:["Hỏi KH thông tin liên hệ của TVLK bên kia"],forms:["Không có biểu mẫu riêng"],fields:["Chiều: Chuyển đi / Nhận về","Loại chuyển khoản (1) tất toán (2) toàn bộ CK+quyền (3) một phần CK+quyền (4) một phần CK (5) khác",...KH,"TVLK đối ứng: tên, số TK tại đó, người liên hệ"]},
+  {k:"dec",q:"Chiều chuyển khoản?",br:[
+   {l:"Chuyển đi",c:[
+    {k:"form",n:"B2",t:"Lập hồ sơ",w:"P.MG, P.DV.CN, P.DV&QLSP",s:"0,5h",when:"Chuyển đi",do:["KH ký BM.01 03 bản","KH chi nhánh: GĐ CN ký nháy, gửi gốc về hội sở"],forms:["BM.01 Giấy đề nghị chuyển khoản (03 bản chính)",GTPL],fields:[...CK,"Bảng cổ tức CK / CP thưởng / ESOP","Bảng quyền phát sinh (2.1–2.7): mã CK, ngày ĐKCC, tỷ lệ, SL phân bổ…","Tệp: BM.01 đã ký, GTPL"]},
+    {k:"ap",n:"B3",t:"Trình phê duyệt hồ sơ",w:"P.DV&QLSP → TGĐ/BLĐ",s:"4h",when:"Chuyển đi",do:["P.DV.HS kiểm tra thông tin, chữ ký","TGĐ/BLĐ duyệt, ký phần TVLK bên chuyển","Gửi 01 bản BM.01 cho TVLK nhận (hoặc qua MG → KH)"],forms:["BM.01",GTPL,"Hồ sơ liên quan (nếu có)"],fields:["Kết quả duyệt","Ngày gửi BM.01 cho TVLK nhận"],
+     out:{L:REJ(),C:"Đã duyệt",R:BACK("Cần bổ sung","Về B2")}}]},
+   {l:"Nhận về",c:[
+    {k:"form",n:"B2",t:"Lập hồ sơ (nhận hồ sơ TVLK chuyển)",w:"P.MG, P.DV.CN, P.DV&QLSP",s:"0,5h",when:"Nhận về",do:["Nhận hồ sơ do TVLK bên chuyển lập, kiểm tra số dư CK chuyển về"],forms:["Giấy đề nghị chuyển khoản (mẫu của TVLK bên chuyển)","Giấy xác nhận số dư CK (nếu có)",GTPL],fields:[...CK,"Tệp hồ sơ TVLK chuyển"]},
+    {k:"skip",t:"B3: không trình duyệt"}]}]},
+  {k:"step",n:"B4",t:"Thực hiện chuyển khoản hoặc nhận chuyển khoản",w:"P.DV&QLSP (NV tạo, PT duyệt)",s:"1h",do:["Liên lạc TVLK bên kia lấy SID, PCOD; SID không khớp thì đồng bộ ĐKSH, ngày cấp, họ tên trước","Đi: VSE2244 + VSE2255 (MT542); Nhận: 2275 / VSE2275 (MT540), điền PCOD","Theo dõi 151000, báo TVLK bên kia xác nhận"],forms:["Không có (Flex, STP hoặc WebUI)"],fields:["SID, PCOD; SID khớp? (checkbox)","Mã GD Flex, trạng thái","Ngày hoàn tất"],
+   out:{L:BACK("SID không khớp","Đồng bộ thông tin rồi làm lại B4"),C:"Hoàn tất"}},
+  {k:"step",n:"B5",t:"Lưu hồ sơ",w:"P.DV&QLSP",s:"0,5h",do:["Lưu toàn bộ hồ sơ ở B2"],forms:["Đi: BM.01 (01 bản), GTPL, hồ sơ khác","Nhận: giấy đề nghị của TVLK chuyển, xác nhận số dư, GTPL"],fields:["Vị trí lưu"]},
+  END_OK],
+ xl:["Excel ghi B3 \"Trình phê duyệt hồ sơ\" chỉ có P.DV&QLSP. Quy trình gốc: P.DV&QLSP trình TGĐ/BLĐ duyệt cho chiều chuyển đi; chiều nhận về không trình duyệt.","Excel không ghi việc gửi 01 bản BM.01 cho TVLK nhận sau khi duyệt (có trong diễn giải B3)."]},
+
+{id:"8d",name:"Phong tỏa & giải tỏa",title:"8.4 Phong tỏa và giải tỏa chứng khoán",
+ desc:"Rẽ nhánh theo <b>Loại</b>: Phong tỏa / Giải tỏa / Giải tỏa tài sản đảm bảo khoản vay (cầm cố). Khung 5 bước giống nhau, chỉ khác cặp mẫu và mã giao dịch.",
+ flow:[
+  {k:"start",t:"Yêu cầu phong tỏa / giải tỏa",w:"Người tạo: P.MG, P.DV.CN, P.DV&QLSP"},
+  {k:"form",n:"B1",t:"Tiếp nhận yêu cầu từ khách hàng",w:"P.MG, P.DV.CN, P.DV&QLSP",s:"0,5h",do:["Phong tỏa: kiểm tra CK là CK tự do chuyển nhượng, chưa bị phong tỏa, tạm giữ, ký quỹ"],forms:["Không có biểu mẫu riêng"],fields:["Loại: Phong tỏa / Giải tỏa / Giải tỏa cầm cố",...KH,"Bảng CK: mã CK, loại CK, số lượng","CK đủ điều kiện phong tỏa? (checkbox)"]},
+  {k:"form",n:"B2",t:"Hướng dẫn lập hồ sơ",w:"P.MG, P.DV.CN, P.DV&QLSP",s:"0,5–24h",do:["KH ký đơn 03 bản theo loại","Cầm cố: chờ ngân hàng cho vay ký xác nhận chấp thuận giải tỏa","KH chi nhánh: GĐ CN ký nháy, gửi gốc về hội sở"],forms:["17/LK – Phong tỏa (03 bản)","19/LK – Giải tỏa (03 bản)","21/LK – Bảng kê giải tỏa cầm cố (03 bản, ngân hàng ký)",GTPL],fields:["Cầm cố: số HĐ vay, ngày HĐ, bên cho vay","Tệp: đơn đã ký, GTPL"]},
+  {k:"ap",n:"B3",t:"Trình phê duyệt hồ sơ",w:"P.DV&QLSP → TGĐ/BLĐ",s:"4h",do:["P.DV&QLSP kiểm tra, lập yêu cầu chuyển khoản 02 bản","TGĐ/BLĐ duyệt, ký, đóng dấu"],forms:["16/LK + 17/LK (phong tỏa)","18/LK + 19/LK (giải tỏa)","20/LK + 21/LK (giải tỏa cầm cố)"],fields:["Kết quả duyệt, ý kiến"],
+   out:{L:REJ(),C:"Đã duyệt",R:BACK("Cần bổ sung","Về B2")}},
+  {k:"dec",q:"Loại?",br:[
+   {l:"Phong tỏa",c:[{k:"step",n:"B4",t:"Gửi hồ sơ VSDC, nhập GD 2202",w:"P.DV&QLSP (NV tạo, PT duyệt)",s:"4h",when:"Phong tỏa",do:["Cùng ngày gửi bản cứng và nhập Flex","2202 sinh điện MT540, MT504"],forms:["16/LK (02 bản)","17/LK (01 bản)","Biên bản giao nhận (03 bản)"],fields:["Ngày gửi, scan biên bản có VSDC ký nhận","Mã GD Flex"]}]},
+   {l:"Giải tỏa",c:[{k:"step",n:"B4",t:"Gửi hồ sơ VSDC, nhập GD VSE2213",w:"P.DV&QLSP (NV tạo, PT duyệt)",s:"4h",when:"Giải tỏa",do:["VSE2213: MT542 (giải tỏa toàn bộ) hoặc MT505 (một phần)"],forms:["18/LK (02 bản)","19/LK (01 bản)","Biên bản giao nhận (03 bản)"],fields:["Ngày gửi, scan biên bản","Toàn bộ / một phần","Mã GD Flex"]}]},
+   {l:"Giải tỏa cầm cố",c:[{k:"step",n:"B4",t:"Gửi hồ sơ VSDC, nhập GD VDF2615",w:"P.DV&QLSP (NV tạo, PT duyệt)",s:"4h",when:"Giải tỏa cầm cố",do:["VDF2615 sinh điện MT542 / MT505"],forms:["20/LK (02 bản)","21/LK (03 bản)","Biên bản giao nhận (03 bản)"],fields:["Ngày gửi, scan biên bản","Mã GD Flex"]}]}]},
+  {k:"step",n:"B5",t:"Nhận hồ sơ từ VSDC, lưu hồ sơ",w:"P.DV&QLSP",s:"1 ngày LV",do:["Theo dõi duyệt/từ chối trên màn 151000","VSDC trả lại 16/18/20 có xác nhận (01 bản chính)","Lưu bộ hồ sơ"],forms:["16/18/20/LK có xác nhận VSDC (upload)","Bản lưu: 16–21/LK, GTPL, biên bản (01 bản)"],fields:["Ngày VSDC xác nhận, ngày hiệu lực chuyển khoản","Lý do từ chối (nếu có)","Vị trí lưu"],
+   out:{L:BACK("VSDC từ chối","Về B3"),C:"VSDC đã duyệt"}},
+  END_OK],
+ xl:["Excel B4 chỉ ghi giao dịch 2202 và VSE2213, thiếu VDF2615 cho giải tỏa tài sản đảm bảo khoản vay.","Excel B4 không nêu số bản: 16/18/20 gửi 02 bản; 17/19 gửi 01 bản; 21 gửi 03 bản."]}
+];
+
+/* ===================== SHEET 9 · MỞ TK ===================== */
+const HD=["Ngôn ngữ HĐ: Việt–Anh (01A) / Việt–Hoa (01B)","KH: họ tên, ngày sinh, giới tính, quốc tịch, CCCD/HC/ĐKKD, ngày/nơi cấp, địa chỉ, ĐT đăng ký dịch vụ, email, MST","Loại TK 1/2/3 + thông tin tài khoản tiền","Thuế, loại CK giao dịch, 7 dịch vụ đăng ký","Đầu tư, người nội bộ, sở hữu ≥5%, FATCA","Nội bộ (thay Phiếu thông tin): NV tư vấn + số CCHN, nơi công tác, nguồn KH","Tệp: HĐ đã ký, hồ sơ pháp lý (bản sao ≤ 6 tháng)"];
+const S9=[
+{id:"9a",name:"KH trong nước",title:"9.1 Mở tài khoản cho khách hàng trong nước",
+ desc:"Luồng phổ biến nhất. Hai điều kiện rẽ nhánh: <b>Kênh</b> (tại quầy / trực tuyến) và <b>Loại TK</b> (loại 1 mới có bước kế toán).",
+ flow:[
+  {k:"start",t:"Mở TK – KH trong nước",w:"Người tạo: NV MG (hoặc hệ thống mở TK online)"},
+  {k:"form",n:"B1",t:"Hướng dẫn và cung cấp hồ sơ",w:"NV MG",s:"0,5–1h",do:["Cá nhân: CCCD photo + bản chính đối chiếu; tổ chức: GCNĐKDN, văn bản ủy quyền, CCCD người ĐDPL…","KH điền, ký HĐ 02 bản (không mực đen, cùng màu mực)","MG đối chiếu, ký ô Nhân viên tư vấn"],forms:["HĐ 01A / 01B (02 bản)","Hồ sơ pháp lý","Phiếu thông tin nội bộ → không in, thay bằng trường"],fields:["Kênh: Tại quầy / Trực tuyến","Loại KH: Cá nhân / Tổ chức",...HD]},
+  {k:"dec",q:"Kênh = Trực tuyến?",br:[
+   {l:"Trực tuyến",c:[{k:"wait",n:"+",t:"Chờ KH gửi HĐ giấy về",w:"NV DV",s:"≤ 7 ngày LV",add:1,when:"Mở TK trực tuyến",do:["KH in 02 bản HĐ, ký, gửi về FNS","NV DV vào hệ thống quản trị mở TK online, làm tiếp B2"],forms:["HĐ 01A (KH tự in)"],fields:["Ngày nhận HĐ giấy"]}]},
+   {l:"Tại quầy",c:[]}]},
+  {k:"ap",n:"B2",t:"Khai báo thông tin trên Flex (111001) và duyệt dữ liệu",w:"NV DV khai · PT DV duyệt",s:"1,5h",do:["NV DV khai 9 nhóm thông tin, Flex cấp số TKLKCK (hoặc số KH chọn), cấp số TKGD","PT DV duyệt, khai phí SMS bằng 0043 (nếu có)"],forms:["Hồ sơ pháp lý","HĐ"],fields:["Số TKLKCK, số TKGD","Ngày khai báo, PT đã duyệt","Phí SMS: có/không"],
+   out:{L:BACK("Cần sửa","NV DV sửa lại B2"),C:"Đã duyệt"}},
+  {k:"ap",n:"B3",t:"Trình ký",w:"NV DV → TGĐ/NĐUQ",s:"4h",do:["TGĐ/NĐUQ ký HĐ, chuyển đóng dấu","Trả MG 01 bản chính HĐ cho KH"],forms:["Hồ sơ pháp lý","HĐ"],fields:["Kết quả ký","Ngày trả HĐ cho KH"],
+   out:{L:REJ("Không mở TK"),C:"Đã ký"}},
+  {k:"dec",q:"Loại TK = 1?",br:[
+   {l:"Loại 1",c:[{k:"step",n:"B4",t:"Khai báo thông tin TK thụ hưởng trên Flex",w:"NV DV, NV KT, PT KT",s:"2h",when:"TK loại 1",do:["NV DV photo 02 trang đầu HĐ, chuyển/scan cho KT","NV KT khai tab \"Chuyển tiền trực tuyến\" (Flex-111001)","PT KT đối chiếu, duyệt"],forms:["02 trang đầu HĐ"],fields:["Bảng TK thụ hưởng: người thụ hưởng, số TK, NH, chi nhánh","PT KT đã duyệt"]}]},
+   {l:"Loại 2",c:[],s:"Bỏ qua B4"}]},
+  {k:"step",n:"B5",t:"Khai báo thông tin mở tài khoản trên VSDC",w:"NV DV, NV BP.LK",s:"4–8h",do:["NV DV xuất danh sách RCF0017, email BP.LK","BP.LK khai báo cổng VSDC; VSDC duyệt sáng/chiều, Flex tự kích hoạt","NV DV báo MG TK đã kích hoạt"],forms:["Danh sách KH mở TKLKCK (Flex RCF0017)"],fields:["Ngày gửi danh sách","Ngày VSDC duyệt, TK đã kích hoạt"]},
+  {k:"step",n:"B6",t:"Xác nhận và lưu hồ sơ",w:"NV MG, NV DV",s:"0,5h",do:["MG xác nhận mật khẩu Flex gửi qua email, hướng dẫn KH nộp tiền","NV DV lưu hồ sơ"],forms:["HĐ (01 bản chính)","Hồ sơ pháp lý (01 bộ)"],fields:["Ngày báo KH","Vị trí lưu"]},
+  END_OK],
+ xl:["Excel không có nhánh mở TK trực tuyến (quy trình mục 1.5).","Excel không ghi B4 chỉ áp dụng TK loại 1 ở cột điều kiện; sơ đồ đặt thành nhánh.","B5 trong quy trình mở TK (2023) khác cách kích hoạt mô tả ở quy trình lưu ký (2026: gửi điện VCF0135 trước 17h). Cần hỏi bản nào đang chạy."]},
+
+{id:"9b",name:"KH nước ngoài · LK tại FNS",title:"9.2 Mở tài khoản cho khách hàng nước ngoài lưu ký tại FNS",
+ desc:"Phải xin mã số giao dịch (MSGD) từ VSDC Hà Nội trước khi khai báo Flex. Số TK = 093F + trading code.",
+ flow:[
+  {k:"start",t:"Mở TK – KH nước ngoài lưu ký tại FNS",w:"Người tạo: NV MG"},
+  {k:"form",n:"B1",t:"Hướng dẫn và cung cấp hồ sơ",w:"NV MG, NV DV (PT DV kiểm tra)",s:"1–2h",do:["Cá nhân: hộ chiếu 03 bản sao y/hợp pháp hóa lãnh sự","Tổ chức: GPKD, ĐK thuế, nghị quyết chỉ định đại diện (hợp pháp hóa + dịch công chứng)","NV DV đối chiếu, ký; PT DV kiểm tra, ký"],forms:["Hồ sơ pháp lý","Mẫu số 41 Giấy đăng ký MSGD (01 bản)","Văn bản ủy quyền cho FNS đăng ký MSGD (02 bản, Việt–Anh / Việt–Hoa)","HĐ 01A / 01B (02 bản)"],fields:[...HD,"Hộ chiếu: số, ngày cấp, nơi cấp, hạn","Loại hình tổ chức (Mẫu 41)","TK vốn đầu tư gián tiếp (nếu đã có)"]},
+  {k:"ap",n:"B2",t:"Trình ký",w:"NV DV, PT DV → TGĐ/NĐUQ (GĐ CN với KH chi nhánh), BP.LK",s:"4h",do:["CN: GĐ CN ký HĐ, đóng dấu; TS: TGĐ/NĐUQ ký toàn bộ hồ sơ","Chuyển hồ sơ xin cấp MSGD cho BP.LK"],forms:["Hồ sơ pháp lý","Hồ sơ xin cấp MSGD","HĐ"],fields:["Người ký, kết quả","Ngày chuyển hồ sơ cho BP.LK"],
+   out:{L:REJ("Không mở TK"),C:"Đã ký"}},
+  {k:"step",n:"B3",t:"Nộp hồ sơ VSDC, nhận kết quả",w:"NV BP.LK",s:"Theo VSDC",do:["Kiểm tra hồ sơ MSGD, trình TGĐ/NĐUQ ký Giấy ủy quyền","Lập Phiếu gửi hồ sơ PL03, gửi VSDC Hà Nội","Nhận GCN đăng ký MSGD: 01 bản chính cho NV DV, 01 bản lưu"],forms:["Phiếu gửi hồ sơ PL03","Hồ sơ xin cấp MSGD","Giấy chứng nhận đăng ký MSGD (nhận về, upload)"],fields:["Ngày gửi VSDC","Kết quả VSDC trên PL03: duyệt / bổ sung / không duyệt","Trading code, ngày cấp"],
+   out:{L:BACK("VSDC yêu cầu bổ sung","Bổ sung, nộp lại B3"),C:"Đã cấp MSGD"}},
+  {k:"ap",n:"B3",t:"Khai báo thông tin trên Flex",w:"NV DV khai · PT DV duyệt",s:"1,5h",do:["Liên hệ NH nhận thông báo số TK vốn đầu tư gián tiếp","Flex-111001 khai 9 nhóm; số TKLKCK = 093F<trading code>","PT DV duyệt, khai phí SMS 0043","Chuyển MG: GCN MSGD (scan email; bản chính thì lập biên bản bàn giao), HĐ 01 bản"],forms:["Thông báo số TK ngân hàng (upload)"],fields:["TK vốn đầu tư gián tiếp, ngân hàng","Số TKLKCK, số TKGD","KH nhận bản chính GCN MSGD? (→ biên bản)"],
+   out:{L:BACK("Cần sửa","NV DV sửa lại"),C:"Đã duyệt"}},
+  {k:"step",n:"B4",t:"Khai báo thông tin mở tài khoản trên VSDC",w:"NV DV, NV BP.LK",s:"4–8h",do:["RCF0017 xuất danh sách, email BP.LK","BP.LK khai báo cổng VSDC, Flex tự kích hoạt","NV DV báo MG"],forms:["Danh sách KH mở TKLKCK"],fields:["Ngày gửi, ngày VSDC duyệt, TK đã kích hoạt"]},
+  {k:"step",n:"B5",t:"Xác nhận và lưu hồ sơ",w:"NV MG, NV DV",s:"0,5h",do:["MG xác nhận mật khẩu, hướng dẫn nộp tiền","NV DV lưu hồ sơ"],forms:["HĐ (01 bản chính)","Hồ sơ pháp lý","GCN đăng ký MSGD (bản photo)","Thông báo số TK ngân hàng"],fields:["Ngày báo KH","Vị trí lưu"]},
+  END_OK],
+ xl:["Excel B2 không có GĐ chi nhánh; diễn giải quy trình ghi GĐ CN ký với KH chi nhánh.","Excel gộp nộp hồ sơ MSGD và khai báo Flex vào một B3. Sơ đồ tách thành 2 khối vì do 2 bộ phận làm (BP.LK và NV DV) và có điểm chờ VSDC ở giữa.","Excel không ghi thời gian VSDC cấp MSGD; cần hỏi để đặt SLA."]},
+
+{id:"9c",name:"KH nước ngoài · LK tại NH",title:"9.3 Mở tài khoản cho khách hàng nước ngoài lưu ký tại ngân hàng lưu ký",
+ desc:"KH đã có MSGD và tài khoản ở ngân hàng lưu ký. FNS chỉ mở TK đặt lệnh (loại 3), không có bước VSDC.",
+ flow:[
+  {k:"start",t:"Mở TK – NN lưu ký tại NH",w:"Người tạo: NV MG"},
+  {k:"form",n:"B1",t:"Hướng dẫn và cung cấp hồ sơ",w:"NV MG, NV DV",s:"1h",do:["Nhận hồ sơ pháp lý như KH nước ngoài lưu ký tại FNS","Nhận GCN MSGD (sao y) và thông báo TK ngân hàng (bản chính)","KH ký HĐ, MG đối chiếu, ký"],forms:["Hồ sơ pháp lý","HĐ 01A / 01B (02 bản)","GCN đăng ký MSGD (01 bản sao y)","Thông báo TK ngân hàng (01 bản chính)"],fields:[...HD,"NH lưu ký: tên, số TK lưu ký, trading code"]},
+  {k:"ap",n:"B2",t:"Khai báo thông tin trên Flex và duyệt dữ liệu",w:"NV DV khai · PT DV duyệt",s:"1,5h",do:["Flex-111001: mục \"Lưu ký tại CTCK\" chọn Không","Số TKLKCK = mã số NH lưu ký<trading code>","PT DV duyệt, khai phí SMS 0043"],forms:["Hồ sơ pháp lý","HĐ"],fields:["Số TKLKCK, số TKGD","PT đã duyệt"],
+   out:{L:BACK("Cần sửa","NV DV sửa lại B2"),C:"Đã duyệt"}},
+  {k:"ap",n:"B3",t:"Trình ký",w:"NV DV → TGĐ/NĐUQ",s:"4h",do:["Ký HĐ, đóng dấu, trả MG 01 bản chính"],forms:["Hồ sơ pháp lý","HĐ"],fields:["Kết quả ký"],
+   out:{L:REJ("Không mở TK"),C:"Đã ký"}},
+  {k:"step",n:"B4",t:"Xác nhận và lưu hồ sơ",w:"NV MG, NV DV",s:"0,5h",do:["MG xác nhận mật khẩu, hướng dẫn giao dịch","NV DV lưu hồ sơ"],forms:["HĐ","Hồ sơ pháp lý","GCN đăng ký MSGD (bản sao y)","Thông báo TK ngân hàng"],fields:["Ngày báo KH","Vị trí lưu"]},
+  END_OK],
+ xl:["Khớp với quy trình gốc, không có điểm lệch."]},
+
+{id:"9d",name:"Đăng ký / hủy dịch vụ",title:"9.4 Đăng ký hoặc hủy dịch vụ",
+ desc:"KH bật/tắt dịch vụ sau khi đã có TK. Phiếu lưu vào hồ sơ mở TK cũ.",
+ flow:[
+  {k:"start",t:"Yêu cầu đăng ký / hủy dịch vụ",w:"Người tạo: NV MG, NV DV"},
+  {k:"form",n:"B1",t:"Tiếp nhận nhu cầu, hướng dẫn KH hoàn thiện hồ sơ",w:"NV MG, NV DV",s:"0,5h",do:["MG giới thiệu dịch vụ, đưa phiếu, KH ký","Đối chiếu bản chính CCCD/HC, ký ô Nhân viên tiếp nhận","NV DV đối chiếu với Flex, ký nháy ô Phòng Dịch vụ"],forms:["Phiếu đăng ký/hủy dịch vụ 02A (Việt–Anh) / 02B (Việt–Hoa)"],fields:["Số TKLKCK (liên kết hồ sơ mở TK)","Bảng 7 dịch vụ: Đăng ký / Hủy","Phương thức xác thực Token / OTP; nhận OTP qua email / ĐT","Ngôn ngữ phiếu","Tệp: phiếu đã ký"]},
+  {k:"step",n:"B2",t:"Khai báo hệ thống (Flex 111001 / 0043)",w:"NV DV",s:"0,5h",do:["Khai báo thông tin trên phiếu vào Flex"],forms:["Phiếu đăng ký/hủy dịch vụ"],fields:["Ngày khai báo"]},
+  {k:"ap",n:"B2",t:"Duyệt dữ liệu",w:"PT DV",s:"0,5h",do:["PT DV kiểm duyệt, ký ô Phòng Dịch vụ"],forms:["Phiếu đăng ký/hủy dịch vụ"],fields:["Kết quả duyệt"],
+   out:{L:BACK("Cần sửa","Về khai báo B2"),C:"Đã duyệt"}},
+  {k:"ap",n:"B2",t:"Trình ký",w:"TGĐ/NĐUQ",s:"4h",do:["TGĐ/NĐUQ ký, chuyển hành chánh đóng dấu"],forms:["Phiếu đăng ký/hủy dịch vụ"],fields:["Kết quả ký"],
+   out:{L:REJ("Không thay đổi dịch vụ"),C:"Đã ký"}},
+  {k:"step",n:"B3",t:"Lưu hồ sơ",w:"NV DV",s:"0,25h",do:["Lưu phiếu vào hồ sơ mở tài khoản"],forms:["Phiếu đăng ký/hủy dịch vụ"],fields:["Vị trí lưu"]},
+  END_OK],
+ xl:["Excel gộp khai báo, duyệt và trình ký vào một B2. Sơ đồ tách 3 khối vì 3 người khác nhau (NV DV, PT DV, TGĐ/NĐUQ) và mỗi người có thể trả lại.","Cần hỏi: có cần TGĐ ký từng phiếu dịch vụ không."]}
+];
+
+/* ===================== SHEET 10 · ỨNG TRƯỚC ===================== */
+const S10=[
+{id:"10a",name:"Ứng trước tiền bán",title:"10. Quy trình ứng trước tiền bán chứng khoán",
+ desc:"Rẽ nhánh theo <b>Kênh tiếp nhận</b>: B1a trực tuyến, B1b tổng đài, B1c tại quầy. Trực tuyến đi thẳng tới B3, không qua B2. Nhánh rủi ro sau B3 lấy từ mục VI.2 của quy trình gốc.",
+ flow:[
+  {k:"start",t:"Yêu cầu ứng trước rút tiền",w:"Người tạo: NV MG/DV, NV BP DV, NV KT"},
+  {k:"dec",q:"Kênh tiếp nhận?",br:[
+   {l:"Trực tuyến",c:[{k:"form",n:"B1a",t:"Tiếp nhận ứng trước qua phương tiện GD trực tuyến",w:"NV KT",s:"0,2h",when:"Trực tuyến",do:["Flex báo lệnh ứng của KH","Không dùng UTTĐ: in ĐN, kiểm tra với hệ thống, ký NV tiếp nhận, PT KT ký","Chỉ chuyển tiền không cần ứng: BP DV in Báo cáo tài sản (RMR3007)"],forms:["ĐN.UTTBCK (KH không ký)","Báo cáo tài sản TKGD (RMR3007)"],fields:["TK, ngày bán, số tiền ứng (lấy từ Flex)","PT KT đã ký"]}]},
+   {l:"Tổng đài",c:[{k:"form",n:"B1b",t:"Tiếp nhận qua tổng đài điện thoại",w:"NV BP DV",s:"0,2h",when:"Tổng đài",do:["Xác thực: SĐT đã đăng ký, tên chủ TK, số TK, 1 câu ngẫu nhiên, mật khẩu tổng đài","Đọc lại TKGD, ngày bán, số tiền cho KH xác nhận","ROD0001 kiểm tra khớp lệnh; 111207 / VCI1153 chọn Ứng rút"],forms:["ĐN.UTTBCK (01 bản)","File ghi âm"],fields:["SĐT gọi đến","Checklist 5 câu xác thực","Tên file ghi âm"],
+      out:{L:{l:"Sai 1 câu",k:"no",c:[{k:"end",t:"Từ chối",w:"Nói rõ lý do cho KH"}]},C:"Đạt"}}]},
+   {l:"Tại quầy",c:[{k:"form",n:"B1c",t:"Tiếp nhận tại địa điểm giao dịch",w:"NV DV hoặc NV MG",s:"0,2h",when:"Tại quầy",do:["Nhận thông tin ứng trước","ROD0001 kiểm tra khớp lệnh; 111207 / VCI1153 chọn Ứng rút"],forms:["ĐN.UTTBCK"],fields:["TK (093…), loại TK (loại 3 bị chặn)","TKGD, ngày bán, số tiền ứng"]}]}]},
+  {k:"dec",q:"Kênh = Trực tuyến?",br:[
+   {l:"Tổng đài · Tại quầy",c:[
+    {k:"ap",n:"B2",t:"Lập ĐN.UTTBCK (Flex RCI0025)",w:"NV DV/MG lập · PT phòng ký",s:"0,3h",when:"Tổng đài, tại quầy",do:["In ĐN bằng RCI0025, kiểm tra với Flex","KH ký (tổng đài: đóng dấu GIAO DỊCH QUA TĐDV, ghi SĐT, tên file ghi âm)","PT phòng kiểm tra chữ ký, ký ô Phụ trách phòng","Trụ sở: chuyển bản chính cho KT"],forms:["BM-QT.UTTBCK-FNS Giấy đề nghị UTTB (tổng đài 01 bản, tại quầy 02 bản)","CCCD/HC"],fields:["Bảng khớp lệnh: mã CK, KL, giá, giá trị, phí, thuế TNCN, thuế cổ tức, tiền thực nhận","(1) Tổng giá trị · (2) số ngày (gồm T7, CN, lễ) · (3) %/ngày","(4) Phí = max((1)×(2)×(3); 30.000đ) · (5) = (1) − (4)","TK nhận tiền: người nhận, số TK, ngân hàng","Tệp: ĐN đã ký"],
+     out:{L:BACK("Sai thông tin","Về bước tiếp nhận"),C:"Đã ký"}},
+    CN_DEC_UT()]},
+   {l:"Trực tuyến",c:[],s:"Đi thẳng B3"}]},
+  {k:"step",n:"B3",t:"Tiếp nhận thông tin và chuyển tiền",w:"NV KT",s:"0,3h",do:["Loại 1: chuyển tiền theo quy trình TK chuyên dụng","Loại 2: UNC/online tới NH thụ hưởng, báo BP DV; offline: kiểm tra phong tỏa, 6692 tăng tiền, 6693 giải tỏa","Tổng đài: nghe lại ghi âm nếu nghi ngờ, gọi lại KH"],forms:["ĐN.UTTBCK","Ủy nhiệm chi (upload)","File ghi âm"],fields:["Số UNC, thời điểm chuyển","Checklist 6692 / 6693 (loại 2 offline)","KT đã gọi lại KH? (tổng đài)"]},
+  {k:"wait",n:"+",t:"Ngày thanh toán: thu hồi",w:"NV BP DV, NV KT",s:"Đến ngày TT",add:1,do:["Hệ thống trích tiền về khi VSDC thanh toán","Xác nhận đã thu đủ"],forms:["Báo cáo dư nợ UTTB (RCI0022) để đối chiếu"],fields:["Ngày thu hồi, số tiền","Còn thiếu"],
+   out:{L:{l:"Thu thiếu / lệnh bán bị hủy",k:"no",c:[
+     {k:"step",n:"+",t:"Kiểm tra số dư, báo MG",w:"NV BP DV (+ NV KT đối chiếu)",s:"1h",add:1,when:"Có sự cố",do:["Đủ tiền: thu hồi ngay","Không đủ: báo MG liên hệ KH","Lệnh hủy: kèm thông báo Sở GDCK/VSDC"],forms:["Thông báo hủy lệnh (upload)"],fields:["Loại sự cố","Đã ứng / đã thu / còn thiếu"]},
+     {k:"step",n:"+",t:"MG liên hệ KH",w:"NV MG",s:"4h",add:1,when:"Có sự cố",do:["Yêu cầu KH nộp bổ sung"],forms:["Không có"],fields:["Kết quả: nộp đủ / còn CK / hết CK"]},
+     {k:"dec",q:"Kết quả?",br:[
+      {l:"Nộp đủ",c:[]},
+      {l:"Còn CK",c:[{k:"step",n:"+",t:"Bán CK thu hồi",w:"NV BP DV",s:"4h",add:1,when:"KH không nộp, còn CK",do:["Đặt lệnh bán giá tốt nhất, báo MG"],forms:["Không có"],fields:["Bảng CK đã bán: mã, KL, giá, tiền thu"]}]},
+      {l:"Hết CK / lệnh hủy",c:[{k:"ap",n:"+",t:"BLĐ duyệt phương án",w:"PT P.DV&QLSP + QTRR → BLĐ",s:"—",add:1,when:"Hết CK, hoặc lệnh bán bị hủy",do:["Lập phương án kèm danh sách KH, BLĐ duyệt, báo KH"],forms:["Phương án xử lý rủi ro (chưa có mẫu)"],fields:["Nội dung phương án, ngày duyệt"]}]}]},
+     {k:"goto",t:"↩ Tới B4 khi còn thiếu = 0"}]},C:"Thu đủ"}},
+  {k:"step",n:"B4",t:"Lưu hồ sơ",w:"NV DV, NV KT",s:"0,2h",do:["KT lưu ĐN khi KH ứng để rút","BP DV cuối ngày xuất báo cáo dư nợ RCI0022 gửi KT; cuối tháng in bản tháng"],forms:["ĐN.UTTBCK","Báo cáo tổng hợp dư nợ ứng trước (RCI0022)","Báo cáo ứng trước trong tháng"],fields:["Bản gốc đã về KT (chi nhánh)","Vị trí lưu"]},
+  END_OK],
+ xl:["Excel ghi mã \"RC10025\", \"RC10022\"; trong quy trình là RCI0025, RCI0022 (chữ I).","Excel B2 ghi \"phụ trách phòng DV&QLSP\"; quy trình ghi Phụ trách phòng của nhân viên tiếp nhận (DV hoặc MG).","Excel không có phần rủi ro (mục VI.2); sơ đồ thêm các khối \"Bổ sung\" sau B3.","Chi nhánh: quy trình ghi GĐ chi nhánh ký rồi fax cho KT, bản gốc gửi thứ 6 hằng tuần. Excel không ghi."]}
+];
+function CN_DEC_UT(){return {k:"dec",q:"Tiếp nhận tại chi nhánh?",br:[{l:"Có",c:[{k:"ap",n:"+",t:"GĐ Chi nhánh ký",w:"GĐ Chi nhánh",s:"0,2h",add:1,when:"Tiếp nhận tại chi nhánh",do:["Ký, đóng dấu ĐN","Thay fax: duyệt trên phần mềm + scan","Bản gốc gom gửi KT thứ 6"],forms:["ĐN.UTTBCK (scan)"],fields:["Kết quả duyệt","Ngày gửi bản gốc"]}]},{l:"Không",c:[]}]}}
+
+const GROUPS=[{id:"s8",name:"8 · Lưu ký CK",subs:S8},{id:"s9",name:"9 · Mở TK lưu ký CK",subs:S9},{id:"s10",name:"10 · Ứng trước tiền bán CK",subs:S10}];
+
+
+/* ===================== WORKFLOW SAU KHI GỘP ===================== */
+const M1={id:"m1",name:"Mở / đóng TK lưu ký",src:["9a","9b","9c","8a"],color:"var(--lime)",
+ merge:"Gộp 9.1 + 9.2 + 9.3 + 8.1 (nhánh Mở và Đóng)",
+ why:"Cùng hợp đồng, cùng bộ trường khách hàng, cùng chuỗi khai Flex → PT duyệt → trình ký → lưu. Nhánh \"Mở\" của 8.1 đang lặp lại bước khai báo VSDC của 9.1/9.2.",
+ gain:["Một bộ trường khách hàng thay vì 4","Bước khai báo VSDC chỉ còn một chỗ","Một danh sách để đếm TK mở/đóng cho báo cáo tháng"],
+ cost:["Form dài, nhiều trường ẩn/hiện theo đối tượng KH","Phải cấu hình 6 khối Quyết định"],
+ flow:[
+  {k:"start",t:"Yêu cầu mở / đóng TK lưu ký",w:"Người tạo: NV MG, NV DV"},
+  {k:"form",n:"1",t:"Tiếp nhận & hướng dẫn hồ sơ",w:"NV MG / NV DV",s:"0,5–1h",do:["Chọn Loại yêu cầu, Đối tượng KH, Kênh","Mở: KH ký HĐ 02 bản; nước ngoài lưu ký FNS thêm Mẫu 41 + Giấy ủy quyền","Đóng: KH ký Giấy đề nghị tất toán"],forms:["HĐ 01A/01B","Mẫu 41, Giấy ủy quyền MSGD","Giấy đề nghị tất toán TKLKCK"],fields:["Loại yêu cầu: Mở / Đóng","Đối tượng KH, Kênh",...HD]},
+  {k:"dec",q:"Loại yêu cầu?",br:[
+   {l:"Mở TK",c:[
+    {k:"dec",q:"Kênh = Trực tuyến?",br:[{l:"Online",c:[{k:"wait",n:"2",t:"Chờ KH gửi HĐ giấy",w:"NV DV",s:"≤ 7 ngày LV"}]},{l:"Tại quầy",c:[]}]},
+    {k:"dec",q:"Nước ngoài lưu ký tại FNS?",br:[
+     {l:"Có",c:[
+      {k:"ap",n:"3",t:"Ký HĐ & Giấy ủy quyền",w:"GĐ CN / TGĐ, NĐUQ",s:"4h"},
+      {k:"step",n:"4",t:"BP.LK nộp hồ sơ MSGD cho VSDC HN",w:"NV BP.LK",s:"Theo VSDC",out:{L:BACK("Bổ sung","Nộp lại"),C:"Đã cấp MSGD"}}]},
+     {l:"Khác",c:[]}]},
+    {k:"ap",n:"5",t:"Khai Flex & PT DV duyệt",w:"NV DV · PT DV",s:"1,5h",out:{L:BACK("Cần sửa","Về B5"),C:"Đã duyệt"}},
+    {k:"dec",q:"Đã ký ở B3?",br:[
+     {l:"Chưa",c:[{k:"ap",n:"6",t:"TGĐ / NĐUQ ký HĐ",w:"TGĐ / NĐUQ",s:"4h",out:{L:REJ("Không mở TK"),C:"Đã ký"}}]},
+     {l:"Rồi",c:[]}]},
+    {k:"dec",q:"TK loại 1?",br:[{l:"Có",c:[{k:"step",n:"7",t:"Kế toán khai TK thụ hưởng",w:"NV KT + PT KT",s:"2h"}]},{l:"Không",c:[]}]},
+    {k:"dec",q:"Cần kích hoạt VSDC?",br:[{l:"Có",c:[{k:"step",n:"8",t:"Khai báo mở TK trên VSDC",w:"NV DV + NV BP.LK",s:"4–8h"}]},{l:"NH lưu ký",c:[]}]}]},
+   {l:"Đóng TK",c:[
+    CN_DEC,
+    {k:"ap",n:"9",t:"TGĐ / BLĐ duyệt tất toán",w:"P.DV&QLSP → TGĐ/BLĐ",s:"4h",out:{L:REJ("Không tất toán"),C:"Đã duyệt"}},
+    {k:"step",n:"10",t:"Hủy mapping (VCF0102)",w:"P.DV&QLSP",s:"1h"},
+    {k:"wait",n:"11",t:"Chờ 01 ngày, gửi điện đóng (0059)",w:"PT P.DV&QLSP",s:"1 ngày"}]}]},
+  {k:"step",n:"12",t:"Xác nhận với KH & lưu hồ sơ",w:"NV MG + NV DV",s:"0,5h"},
+  END_OK]};
+
+const M2={id:"m2",name:"Đăng ký / hủy dịch vụ",src:["9d"],color:"var(--lav)",
+ merge:"Giữ nguyên 9.4",
+ why:"Chuỗi duyệt giống Mở TK nhưng phát sinh nhiều lần sau khi đã có TK, phiếu chỉ 7 dòng. Gộp vào Mở TK sẽ bắt người làm mở form hợp đồng hơn 60 trường chỉ để tắt SMS.",
+ gain:["Form ngắn, làm nhanh"],cost:["Thêm 1 workflow phải bảo trì"],
+ flow:null};
+
+const M3={id:"m3",name:"Nghiệp vụ lưu ký theo yêu cầu KH",src:["8b","8c","8d"],color:"var(--coral)",
+ merge:"Gộp 8.2 + 8.3 + 8.4",
+ why:"Cùng 5 bước: tiếp nhận đơn → kiểm tra, lập mẫu VSDC → TGĐ duyệt → Flex & điện → gửi/nhận VSDC → lưu. Cùng người làm. Chỉ khác cặp mẫu và mã giao dịch.",
+ gain:["Môi giới chỉ có một chỗ tạo yêu cầu cho mọi việc về CK của khách","Một bước TGĐ duyệt, một bước theo dõi VSDC cho 7 loại nghiệp vụ","Báo cáo SLA chung, lọc theo trường Loại khi cần"],
+ cost:["Trường riêng của chuyển khoản (TVLK đối ứng, PCOD, bảng quyền) phải ẩn/hiện","Nếu quyền tạo phiếu khác nhau theo loại thì phải cấu hình quyền theo loại"],
+ flow:[
+  {k:"start",t:"Yêu cầu nghiệp vụ lưu ký",w:"Người tạo: P.MG, P.DV.CN, P.DV&QLSP"},
+  {k:"form",n:"1",t:"Tiếp nhận yêu cầu & hồ sơ KH",w:"P.MG / P.DV chi nhánh",s:"0,5h",do:["Chọn Loại: Lưu ký · Rút · Chuyển đi · Nhận về · Phong tỏa · Giải tỏa · Giải tỏa cầm cố","In đơn theo loại cho KH ký"],forms:["BM.02 / BM.03 / BM.01","17 / 19 / 21/LK","Hồ sơ TVLK chuyển (nhận về)"]},
+  CN_DEC,
+  {k:"step",n:"2",t:"Nhận bản gốc & kiểm tra, lập mẫu VSDC",w:"NV P.DV&QLSP",s:"4–24h",out:{L:BACK("Cần bổ sung","Về B1"),C:"Hợp lệ"}},
+  {k:"dec",q:"Loại = Nhận về?",br:[
+   {l:"Không",c:[{k:"ap",n:"3",t:"TGĐ / BLĐ phê duyệt",w:"TGĐ / BLĐ",s:"4h",out:{L:REJ(),C:"Đã duyệt",R:BACK("Cần thêm thông tin","Về B2")}}]},
+   {l:"Nhận về",c:[],s:"Không trình duyệt"}]},
+  {k:"step",n:"4",t:"Thao tác Flex & gửi điện VSDC",w:"NV + PT P.DV&QLSP",s:"1h",out:{L:BACK("SID không khớp","Đồng bộ rồi làm lại B4"),C:"Đã gửi"}},
+  {k:"dec",q:"Loại nghiệp vụ?",br:[
+   {l:"Lưu ký · Phong tỏa · Giải tỏa",c:[{k:"step",n:"5",t:"Gửi hồ sơ bản cứng VSDC",w:"NV P.DV&QLSP",s:"4h"}]},
+   {l:"Chuyển đi",c:[{k:"noti",n:"6",t:"Gửi BM.01 cho TVLK nhận",w:"NV P.DV&QLSP",s:"2h"}]},
+   {l:"Rút · Nhận về",c:[],s:"Không gửi giấy"}]},
+  {k:"step",n:"7",t:"Theo dõi VSDC / TVLK xác nhận",w:"PT P.DV&QLSP",s:"1 ngày LV",out:{L:BACK("VSDC từ chối","Về B2"),C:"Đã xác nhận"}},
+  {k:"dec",q:"Loại = Rút lưu ký?",br:[{l:"Có",c:[{k:"noti",n:"8",t:"Báo KH đến TCPH nhận sổ",w:"NV.MG",s:"1h"}]},{l:"Khác",c:[]}]},
+  {k:"step",n:"9",t:"Lưu hồ sơ",w:"NV P.DV&QLSP",s:"0,5h"},
+  END_OK]};
+
+const M4={id:"m4",name:"Ứng trước tiền bán",src:["10a"],color:"var(--sky,#DDE9F7)",
+ merge:"Giữ nguyên 10",
+ why:"Nhịp tính bằng phút, có tiền đi ra, người làm chính là Kế toán. Rất khác các quy trình còn lại.",
+ gain:["Giữ SLA tính bằng phút, không lẫn với hồ sơ chờ nhiều ngày"],cost:["Không"],flow:null};
+
+const MERGED=[M1,M2,M3,M4];
+const ALL_BEFORE=[...S8,...S9,...S10];
+const BY_ID=Object.fromEntries(ALL_BEFORE.map(x=>[x.id,x]));
+M2.flow=BY_ID["9d"].flow; M4.flow=BY_ID["10a"].flow;
+
+/* ===================== renderer ===================== */
+const VL='<div class="vl"></div>';
+function nodeHTML(it){
+  if(it.k==='goto') return `<div class="goto">${it.t}</div>`;
+  if(it.k==='skip') return `<span class="skip">${it.t}</span>`;
+  const ty=TY[it.k];
+  return `<div class="nd ${it.k}${it.add?' add':''}">${it.n?`<span class="no">${it.n==='+'?'Bổ sung':(/^\d+$/.test(it.n)?'B'+it.n:it.n)}</span>`:''}<div class="ty"><i class="ic ${it.k}">${ty[1]}</i>${ty[0]}</div><div class="tt">${it.t}</div>${it.w?`<div class="wh">${it.w}</div>`:''}${it.s?`<div class="mt"><span>SLA: ${it.s}</span><span>⋯</span></div>`:''}</div>`;
+}
+function seq(items){
+  const o=[];
+  for(let i=0;i<items.length;i++){
+    const it=items[i];
+    if(i>0) o.push(VL);
+    if(it.k==='dec'){o.push(decHTML(it));continue}
+    o.push(nodeHTML(it));
+    if(it.out){o.push(VL);o.push(outHTML(it.out,items.slice(i+1)));break}
+  }
+  return `<div class="fl">${o.join('')}</div>`;
+}
+function decHTML(d){
+  const cols=d.br.map(b=>`<div class="col"><span class="bar t"></span><span class="stub"></span><span class="lbl">${b.l}</span><span class="stub"></span>${b.c.length?seq(b.c):`<span class="skip">${b.s||'Bỏ qua'}</span>`}<span class="grow"></span><span class="bar b"></span></div>`).join('');
+  return `<div class="fl"><div class="dnode"><i class="ic dec">◆</i>Quyết định: ${d.q}</div>${VL}<div class="dec">${cols}</div></div>`;
+}
+function outHTML(o,rest){
+  const slots=[o.L||null,{l:o.C,k:'ok',c:rest},o.R||null];
+  const filled=slots.map(s=>!!s),first=filled.indexOf(true),last=filled.lastIndexOf(true);
+  return `<div class="out">${slots.map((s,i)=>{
+    if(!s) return '<div class="ocol"></div>';
+    const bar=first!==last?`<span class="bar t" style="left:${i===first?'50%':'0'};right:${i===last?'50%':'0'}"></span>`:'';
+    const body=s.c&&s.c.length?seq(s.c):'';
+    const lastK=s.c&&s.c.length?s.c[s.c.length-1].k:null;
+    const tail=(i===1&&lastK!=='end'&&lastK!=='goto')?'<span class="grow"></span>':'';
+    return `<div class="ocol">${bar}<span class="stub"></span><span class="lbl ${s.k}">${s.k==='ok'?'✓ ':s.k==='no'?'✕ ':'? '}${s.l}</span>${body?'<span class="stub"></span>'+body:''}${tail}</div>`;
+  }).join('')}</div>`;
+}
+/* đếm khối */
+function walk(items,f){items.forEach(it=>{if(it.k==='dec'){f(it);it.br.forEach(b=>walk(b.c,f));return}f(it);if(it.out){['L','R'].forEach(s=>{if(it.out[s])walk(it.out[s].c,f)})}})}
+function stats(flows){
+  let blocks=0,ap=0,dec=0,form=0;
+  flows.forEach(fl=>walk(fl,it=>{if(['form','step','ap','wait','noti'].includes(it.k))blocks++;if(it.k==='ap')ap++;if(it.k==='dec')dec++;if(it.k==='form')form++;}));
+  return {wf:flows.length,blocks,ap,dec,form};
+}
+const before=stats(ALL_BEFORE.map(x=>x.flow)), after=stats(MERGED.map(x=>x.flow));
+const S=[["Số workflow phải dựng",before.wf,after.wf,"+ 1 công việc định kỳ (báo cáo tháng)"],["Khối công việc (bước, duyệt, chờ, thông báo)",before.blocks,after.blocks,""],["Khối phê duyệt phải gán người",before.ap,after.ap,""],["Khối Quyết định (rẽ nhánh)",before.dec,after.dec,"Tăng vì khác biệt chuyển thành điều kiện"],["Bộ trường khách hàng phải khai",9,4,"Mỗi workflow một bộ"]];
+document.getElementById('stats').innerHTML=S.map(r=>{
+  const d=r[2]-r[1];const cls=d<0?'down':d>0?'up':'';
+  return `<div class="stat"><span class="sl">${r[0]}</span><div class="sv"><b class="b4">${r[1]}</b><span class="arr">→</span><b class="af">${r[2]}</b><span class="dl ${cls}">${d>0?'+':''}${d}</span></div>${r[3]?`<small>${r[3]}</small>`:''}</div>`}).join('');
+
+/* sơ đồ ánh xạ */
+(function(){
+  const left=[["8a","8.1 Mở, đóng & quản lý TKLK"],["9a","9.1 Mở TK – KH trong nước"],["9b","9.2 Mở TK – NN lưu ký FNS"],["9c","9.3 Mở TK – NN lưu ký NH"],["9d","9.4 Đăng ký / hủy dịch vụ"],["8b","8.2 Lưu ký & rút lưu ký"],["8c","8.3 Chuyển khoản & nhận CK"],["8d","8.4 Phong tỏa & giải tỏa"],["10a","10 Ứng trước tiền bán"]];
+  const right=[["m1","1 · Mở / đóng TK lưu ký","var(--lime)"],["m2","2 · Đăng ký / hủy dịch vụ","var(--lav)"],["m3","3 · Nghiệp vụ lưu ký theo yêu cầu KH","var(--coral)"],["m4","4 · Ứng trước tiền bán","var(--sky)"],["cron","Công việc định kỳ: Báo cáo tháng 07/08/LK-TV","var(--paper)"]];
+  const map={"8a":["m1","cron"],"9a":["m1"],"9b":["m1"],"9c":["m1"],"9d":["m2"],"8b":["m3"],"8c":["m3"],"8d":["m3"],"10a":["m4"]};
+  const LX=20,LW=330,RX=640,RW=340,H=40,G=14;
+  const ly=i=>40+i*(H+G), rpos={m1:118,m2:265,m3:375,m4:470,cron:540};
+  const colorOf=Object.fromEntries(right.map(r=>[r[0],r[2]]));
+  let svg=`<svg viewBox="0 0 1000 600" role="img" aria-label="Ánh xạ 9 quy trình con sang 4 workflow gộp">`;
+  svg+=`<text x="${LX}" y="22" class="svg-m" font-size="12" font-weight="700">TRƯỚC · 9 quy trình con (theo file Excel)</text><text x="${RX}" y="22" class="svg-m" font-size="12" font-weight="700">SAU · 4 workflow + 1 việc định kỳ</text>`;
+  left.forEach((l,i)=>{map[l[0]].forEach(t=>{const y1=ly(i)+H/2,y2=rpos[t]+H/2;svg+=`<path d="M${LX+LW} ${y1} C ${LX+LW+150} ${y1}, ${RX-150} ${y2}, ${RX} ${y2}" fill="none" stroke="${colorOf[t]}" stroke-width="${t==='cron'?2:4}" ${t==='cron'?'stroke-dasharray="6 5"':''} opacity=".95"/>`})});
+  left.forEach((l,i)=>{const t=map[l[0]][0];svg+=`<rect x="${LX}" y="${ly(i)}" width="${LW}" height="${H}" rx="10" fill="var(--canvas)" stroke="var(--line)"/><rect x="${LX}" y="${ly(i)}" width="8" height="${H}" rx="4" fill="${colorOf[t]}"/><text x="${LX+20}" y="${ly(i)+25}" class="svg-t" font-size="13.5" font-weight="600">${l[1]}</text>`});
+  right.forEach(r=>{const y=rpos[r[0]];svg+=`<rect x="${RX}" y="${y}" width="${RW}" height="${H}" rx="10" fill="${r[2]}" stroke="var(--ink)" stroke-width="${r[0]==='cron'?1:1.5}" ${r[0]==='cron'?'stroke-dasharray="5 4"':''}/><text x="${RX+14}" y="${y+25}" font-size="13.5" font-weight="800" fill="${r[0]==='m3'?'#fff':'var(--ink)'}" font-family="Be Vietnam Pro,system-ui,sans-serif">${r[1]}</text>`});
+  svg+='</svg>';
+  document.getElementById('map').innerHTML=svg;
+})();
+
+/* tab từng workflow */
+const tabs=document.getElementById('tabs'),panel=document.getElementById('panel');
+MERGED.forEach((m,i)=>{const b=document.createElement('button');b.type='button';b.id='t-'+m.id;b.setAttribute('role','tab');b.setAttribute('aria-selected','false');b.innerHTML=`<span class="n">0${i+1}</span>${m.name}`;b.addEventListener('click',()=>show(m.id));tabs.appendChild(b)});
+let view='both';
+function stepsCard(src){
+  const items=[];walk(src.flow,it=>{if(it.n&&it.k!=='dec')items.push(it)});
+  return `<div class="bcard"><h5>${src.title}</h5><ol>${items.map(it=>`<li><span class="bn ${it.add?'add':''}">${it.n==='+'?'+':it.n}</span><span>${it.t}<small>${it.w}</small></span></li>`).join('')}</ol></div>`;
+}
+function show(id){
+  const m=MERGED.find(x=>x.id===id);
+  tabs.querySelectorAll('button').forEach(b=>b.setAttribute('aria-selected',b.id==='t-'+id?'true':'false'));
+  try{localStorage.setItem('ss-tab',id)}catch(e){}
+  const srcs=m.src.map(s=>BY_ID[s]);
+  const bst=stats(srcs.map(s=>s.flow)), ast=stats([m.flow]);
+  panel.innerHTML=`
+   <div class="mhead">
+     <div><span class="chip ${m.src.length>1?'sug':'fact-c'}">${m.merge}</span><h3 style="font-size:24px;margin-top:8px">${m.name}</h3><p style="margin-top:6px;max-width:75ch">${m.why}</p></div>
+     <div class="gc"><div class="g"><h5>Được</h5><ul>${m.gain.map(x=>`<li>${x}</li>`).join('')}</ul></div><div class="c"><h5>Đổi lại</h5><ul>${m.cost.map(x=>`<li>${x}</li>`).join('')}</ul></div></div>
+   </div>
+   <div class="mini">
+     <div><span>Workflow</span><b>${bst.wf} → ${ast.wf}</b></div>
+     <div><span>Khối công việc</span><b>${bst.blocks} → ${ast.blocks}</b></div>
+     <div><span>Khối phê duyệt</span><b>${bst.ap} → ${ast.ap}</b></div>
+     <div><span>Bộ trường KH</span><b>${srcs.length} → 1</b></div>
+   </div>
+   <div class="seg" role="group" aria-label="Chọn xem">
+     <button type="button" id="v-before" aria-pressed="${view==='before'}">Trước: ${srcs.length} quy trình riêng</button>
+     <button type="button" id="v-after" aria-pressed="${view==='after'}">Sau: 1 workflow</button>
+     <button type="button" id="v-both" aria-pressed="${view==='both'}">Xem cả hai</button>
+   </div>
+   <div id="vb" ${view==='after'?'hidden':''}>
+     <h4 class="vh">Trước · ${srcs.length} quy trình riêng, giữ đúng bước như file Excel</h4>
+     <div class="bgrid">${srcs.map(stepsCard).join('')}</div>
+   </div>
+   <div id="va" ${view==='before'?'hidden':''}>
+     <h4 class="vh">Sau · 1 workflow, khác biệt chuyển thành khối Quyết định</h4>
+     <div class="canvas-wrap gridbg"><div class="canvas-inner">${seq(m.flow)}</div></div>
+     <p style="font-size:12.5px;color:var(--muted);margin-top:8px">Kéo ngang trong khung để xem hết. Chi tiết biểu mẫu và trường từng bước xem ở trang Sơ đồ Workflow Funan.</p>
+   </div>`;
+  const setV=v=>{view=v;show(id)};
+  document.getElementById('v-before').onclick=()=>setV('before');
+  document.getElementById('v-after').onclick=()=>setV('after');
+  document.getElementById('v-both').onclick=()=>setV('both');
+}
+let st='m1';try{const s=localStorage.getItem('ss-tab');if(s&&MERGED.some(m=>m.id===s))st=s}catch(e){}
+show(st);
+
+</script>
+
+</body></html>
