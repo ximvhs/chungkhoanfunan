@@ -1,5 +1,5 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>Trước và Sau Gộp Funan</title>
+<title>Sơ đồ Workflow Funan</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap">
@@ -326,50 +326,17 @@ table.trk ul{margin:0;padding-left:15px}
 table.trk .kt{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;color:var(--muted);margin-top:4px}
 .when{font-size:11.5px;color:var(--coral);font-weight:700;display:block;margin-top:4px}
 .dropped{margin-top:16px;border-left:4px solid var(--muted);background:var(--paper);padding:12px 16px;border-radius:0 12px 12px 0;font-size:13.5px}
+.subtabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px;border-bottom:1px solid var(--line);padding-bottom:10px}
+.subtabs button{font:inherit;font-size:13.5px;font-weight:700;border:1.5px solid var(--ink);background:var(--canvas);color:var(--ink);border-radius:999px;padding:6px 14px;cursor:pointer}
+.subtabs button[aria-selected="true"]{background:var(--ink);color:var(--canvas)}
+.subtabs button:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+.nd.add{border:1.5px dashed var(--blue-ink)}
+.nd.add .no{background:var(--blue-ink);color:#fff}
+table.trk tr.addrow td{background:var(--blue-soft)}
+table.trk tr.addrow td.hl{background:var(--blue-soft)}
 @media (max-width:900px){.intro{grid-template-columns:1fr}}
 </style>
-<style>
-:root{--sky:#DDE9F7}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--sky:#1D2B3B}}
-:root[data-theme="dark"]{--sky:#1D2B3B}
-.nd.add{border:1.5px dashed var(--blue-ink)}.nd.add .no{background:var(--blue-ink);color:#fff}
-.mapbox{border:1px solid var(--line);border-radius:20px;overflow-x:auto;background:var(--canvas);padding:10px}
-.mapbox svg{display:block;min-width:820px;width:100%;height:auto}
-.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-block:18px 30px}
-.stat{border:1px solid var(--line);border-radius:16px;padding:14px;background:var(--canvas);min-width:0}
-.stat .sl{font-size:12.5px;color:var(--muted);font-weight:600;display:block;min-height:34px}
-.stat .sv{display:flex;align-items:baseline;gap:8px;margin-top:6px;font-variant-numeric:tabular-nums;flex-wrap:wrap}
-.stat .b4{font-size:26px;color:var(--muted);font-weight:800}
-.stat .af{font-size:34px;font-weight:900}
-.stat .arr{color:var(--muted)}
-.stat .dl{font-size:12px;font-weight:800;border-radius:999px;padding:2px 8px;background:var(--paper)}
-.stat .dl.down{background:var(--green-soft);color:var(--green-ink)}
-.stat .dl.up{background:var(--coral-soft);color:var(--coral)}
-.stat small{display:block;font-size:11.5px;color:var(--muted);margin-top:4px}
-.mhead{display:grid;grid-template-columns:1.3fr 1fr;gap:18px;margin-bottom:14px}
-.gc{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.gc>div{border-radius:14px;padding:12px;font-size:13px;min-width:0}
-.gc .g{background:var(--green-soft)}.gc .c{background:var(--coral-soft)}
-.gc h5{margin:0 0 6px;font-size:13.5px}.gc ul{margin:0;padding-left:16px;display:grid;gap:3px}
-.mini{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
-.mini div{background:var(--paper);border-radius:12px;padding:8px 12px;font-size:12px}
-.mini span{display:block;color:var(--muted)}.mini b{font-size:17px;font-variant-numeric:tabular-nums}
-.seg{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
-.seg button{font:inherit;font-size:13.5px;font-weight:700;border:1.5px solid var(--ink);background:var(--canvas);color:var(--ink);border-radius:999px;padding:7px 15px;cursor:pointer}
-.seg button[aria-pressed="true"]{background:var(--ink);color:var(--canvas)}
-.seg button:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
-.vh{margin:18px 0 10px;font-size:15px}
-.bgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
-.bcard{border:1px solid var(--line);border-radius:16px;padding:14px;background:var(--canvas);min-width:0}
-.bcard h5{margin:0 0 10px;font-size:14px;line-height:1.3}
-.bcard ol{list-style:none;margin:0;padding:0;display:grid;gap:0}
-.bcard li{display:grid;grid-template-columns:40px 1fr;gap:8px;align-items:start;font-size:13px;font-weight:600;padding:6px 0;border-top:1px dashed var(--line)}
-.bcard li small{display:block;font-weight:400;color:var(--muted);font-size:11.5px}
-.bn{font-family:var(--f-mono);font-size:11px;font-weight:700;background:var(--ink);color:var(--canvas);border-radius:999px;padding:2px 6px;text-align:center}
-.bn.add{background:var(--blue-ink);color:#fff}
-@media (max-width:1000px){.stats{grid-template-columns:repeat(2,1fr)}.mhead{grid-template-columns:1fr}}
-@media (max-width:560px){.stats{grid-template-columns:1fr}.gc{grid-template-columns:1fr}}
-</style>
+
 
 <style>
 .zhost{position:relative;background:var(--canvas)}
@@ -393,7 +360,6 @@ body.znoscroll{overflow:hidden}
 .zhost.zmax .canvas-wrap{flex:1;max-height:none}
 @media (max-width:640px){.zbar .zhint{display:none}}
 </style>
-
 <style>
 :root{--ph-tiep:#F3E7D6;--ph-cn:#E7E3FA;--ph-kt:#DCEAF8;--ph-duyet:#FCDCD3;--ph-dv:#E3EFC2;--ph-ngoai:#D9EEEC;--ph-ketoan:#FFF0BF;--ph-bao:#F6DDF0;--ph-luu:#DDF0D8}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ph-tiep:#9C7B52;--ph-cn:#7A70C9;--ph-kt:#4F86C0;--ph-duyet:#C0634A;--ph-dv:#86A33A;--ph-ngoai:#3E9C95;--ph-ketoan:#B9952E;--ph-bao:#B060A0;--ph-luu:#4E9A55}}
@@ -407,7 +373,6 @@ body.znoscroll{overflow:hidden}
 .nd.phs .ty{margin-top:3px}
 .nd.phs{background:color-mix(in srgb,var(--rc) 32%,var(--node))}
 </style>
-
 <style>
 /* bảng đối chiếu: nền trung tính, màu chỉ làm dấu */
 .mx-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:var(--canvas)}
@@ -452,7 +417,6 @@ table.dt ul.qs input:checked + span{text-decoration:line-through;color:var(--mut
 .dt-none{color:var(--line)}
 .dt-count{font-size:12.5px;color:var(--muted);margin-top:8px}
 </style>
-
 <style>
 .dlist{display:grid;gap:12px}
 .dcard{border:1px solid var(--line);border-radius:16px;background:var(--canvas);overflow:hidden;box-shadow:inset 5px 0 0 var(--rc)}
@@ -479,7 +443,6 @@ table.dt ul.qs input:checked + span{text-decoration:line-through;color:var(--mut
 @media (max-width:1000px){.dgrid{grid-template-columns:1fr 1fr}.dgrid section:nth-child(3){border-left:0}.dgrid section:nth-child(n+3){border-top:1px solid var(--line)}}
 @media (max-width:600px){.dgrid{grid-template-columns:1fr}.dgrid section+section{border-left:0;border-top:1px solid var(--line)}.dcard header{grid-template-columns:1fr}.dwho{text-align:left}}
 </style>
-
 <style>
 :root{--qa:#A9C83B;--qb:#4F86C0;--qc:#EE5637;--qd:#7A70C9;--qe:#C9952B}
 .qg{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:5px;background:var(--qg);color:#fff;font-size:10.5px;font-weight:900;margin-right:6px;vertical-align:1px;flex-shrink:0}
@@ -496,26 +459,64 @@ table.dt ul.qs input:checked + span{text-decoration:line-through;color:var(--mut
 .qleg span{display:inline-flex;align-items:center}
 @media (max-width:900px){.qintro{grid-template-columns:1fr}}
 </style>
+<style>.addt{display:inline-block;font-size:10.5px;font-weight:800;color:#fff;background:var(--blue-ink);border-radius:999px;padding:1px 7px;vertical-align:1px}.dcard.isadd{border-style:dashed;border-color:var(--blue-ink)}.dcard h5 .mxb{font-family:var(--f-mono);font-size:11.5px;font-weight:700;border:1.2px solid var(--ink);border-radius:6px;padding:0 6px;margin-right:4px}</style>
 <div class="canvas">
   <div class="wrap">
     <nav class="nav" aria-label="Điều hướng">
-      <div class="brand">TRƯỚC &amp; SAU GỘP<small>FUNAN · SHEET 8 · 9 · 10</small></div>
-      <ul><li><a href="https://claude.ai/artifact/P18YwXnYZ9vR49h7yQWuTh" target="_blank" rel="noopener">Sơ đồ chi tiết 9 quy trình</a></li></ul>
-      <a class="pill-out" href="#chitiet">Xem từng workflow</a>
+      <div class="brand">SƠ ĐỒ WORKFLOW<small>FUNAN · 3 QUY TRÌNH</small></div>
+      <ul>
+        <li><a href="https://claude.ai/artifact/NktAXnMkaJ2hfDsJ6sQJUp" target="_blank" rel="noopener">Bản đồ Lưu ký</a></li>
+        <li><a href="https://claude.ai/artifact/SX4AzEfdvYnq3aNFgKUZ1d" target="_blank" rel="noopener">Bản đồ Mở TK</a></li>
+        <li><a href="https://claude.ai/artifact/GFdcCfFMJPpW1FMuMXh5EC" target="_blank" rel="noopener">Bản đồ Ứng trước</a></li>
+      </ul>
+      <a class="pill-out" href="#bang">Xem bảng theo dõi</a>
     </nav>
-    <div style="padding-block:6px 20px">
-      <span class="tag">Đề xuất tinh giản · cần khách xác nhận</span>
-      <h1 style="font-size:clamp(34px,5vw,58px);font-weight:900;line-height:1;text-transform:uppercase;margin-block:14px">9 quy trình con → 4 workflow</h1>
-      <p style="font-size:15.5px;max-width:70ch">Các quy trình chạy cùng khung bước, cùng người làm, chỉ khác mẫu và mã giao dịch thì gộp lại, khác biệt chuyển thành khối Quyết định. Quy trình khác hẳn về nhịp hoặc người làm thì giữ riêng.</p>
+
+    <div class="intro">
+      <div>
+        <span class="tag">Theo đúng sheet 8 · 9 · 10 của Funan</span>
+        <h1>9 quy trình con, vẽ thành khối rẽ nhánh</h1>
+        <p>Mỗi quy trình con khách liệt kê trong file Excel là một sơ đồ. <b>Số bước B1, B2… và tên bước giữ nguyên như Excel</b>, để khi khảo sát nói "bước 3" là hai bên cùng hiểu. Bên trong mỗi quy trình con, chỗ khác nhau (lưu ký/rút, chuyển đi/nhận về, phong tỏa/giải tỏa…) rẽ nhánh bằng khối Quyết định.</p>
+      </div>
+      <div class="changes">
+        <h4>Cách đọc</h4>
+        <ul>
+          <li>Chọn sheet ở tab lớn, chọn quy trình con ở tab nhỏ.</li>
+          <li>Khối có số (B1, B2…) là bước trong Excel. Một bước Excel có thể tách thành 2–3 khối khi có nhiều người làm.</li>
+          <li>Khối viền xanh nét đứt <b>Bổ sung</b>: quy trình gốc có nhưng Excel không ghi. Nên hỏi lại khách.</li>
+          <li>Cuối mỗi tab có danh sách điểm lệch giữa Excel và quy trình gốc.</li>
+        </ul>
+      </div>
     </div>
-    <div class="mapbox" id="map"></div>
-    <div class="stats" id="stats"></div>
-    <h2 id="chitiet" style="font-size:clamp(24px,3.4vw,36px);margin-bottom:16px">Từng workflow: trước và sau</h2>
+
+    <div class="changes" style="background:var(--lime-soft);margin-bottom:18px">
+      <h4>Lịch khảo sát Phòng DV · 14:30–16:30 (theo file Excel Funan)</h4>
+      <ul>
+        <li><b>14:30–15:30 · Lưu ký CK (sheet 8)</b>: nhiều nhánh nhất. Hỏi trước: có gom nhiều KH vào một Mẫu 04/LK và một biên bản không; TGĐ duyệt trên phần mềm có thay ký giấy không.</li>
+        <li><b>15:30–16:05 · Mở TK lưu ký (sheet 9)</b>: hỏi trước bước kích hoạt TK lên VSDC đang chạy theo quy trình 2023 hay 2026.</li>
+        <li><b>16:05–16:25 · Ứng trước (sheet 10)</b>: hỏi số lệnh ứng rút mỗi ngày theo kênh, chi nhánh còn fax không.</li>
+        <li><b>16:25–16:30</b>: chốt danh sách người thật cho từng bước và tài liệu còn thiếu.</li>
+      </ul>
+    </div>
+
+    <div class="blocks" aria-label="Các loại khối">
+      <span><i class="ic start">▶</i>Bắt đầu dịch vụ</span>
+      <span><i class="ic form">▤</i>Biểu mẫu tùy chỉnh</span>
+      <span><i class="ic step">●</i>Bước</span>
+      <span><i class="ic ap">✓</i>Phê duyệt</span>
+      <span><i class="ic dec">◆</i>Quyết định (rẽ nhánh theo điều kiện)</span>
+      <span><i class="ic wait">⏱</i>Chờ</span>
+      <span><i class="ic noti">✉</i>Thông báo</span>
+      <span><i class="ic end">■</i>Kết thúc</span>
+    </div>
+
     <div class="tabs" role="tablist" aria-label="Chọn workflow" id="tabs"></div>
     <div id="panel" role="tabpanel"></div>
   </div>
-  <div class="wrap"><footer><span>Số khối đếm tự động từ sơ đồ. "Trước" giữ đúng bước của file Excel Funan, có thêm các bước Bổ sung lấy từ quy trình gốc.</span><span>Ngày khảo sát: 16/10/2026 · Phòng DV 14:30–16:30.</span></footer></div>
+
+  <div class="wrap"><footer><span>Dựa trên 3 quy trình Funan: Hoạt động lưu ký (10/2026), Mở TKLKCK (09/2023), Ứng trước tiền bán (10/2023) và biểu mẫu kèm theo.</span><span>SLA là gợi ý; điều kiện rẽ nhánh cần khách xác nhận.</span></footer></div>
 </div>
+
 <script>
 const TY={start:["Bắt đầu dịch vụ","▶"],form:["Biểu mẫu tùy chỉnh","▤"],step:["Bước","●"],ap:["Phê duyệt","✓"],wait:["Chờ","⏱"],noti:["Thông báo","✉"],end:["Kết thúc","■"]};
 const GTPL="GTPL bản sao có ký đối chiếu bản chính";
@@ -707,77 +708,6 @@ function CN_DEC_UT(){return {k:"dec",q:"Tiếp nhận tại chi nhánh?",br:[{l:
 const GROUPS=[{id:"s8",name:"8 · Lưu ký CK",subs:S8},{id:"s9",name:"9 · Mở TK lưu ký CK",subs:S9},{id:"s10",name:"10 · Ứng trước tiền bán CK",subs:S10}];
 
 
-/* ===================== WORKFLOW SAU KHI GỘP ===================== */
-const M1={id:"m1",name:"Mở / đóng TK lưu ký",src:["9a","9b","9c","8a"],color:"var(--lime)",
- merge:"Gộp 9.1 + 9.2 + 9.3 + 8.1 (nhánh Mở và Đóng)",
- why:"Cùng hợp đồng, cùng bộ trường khách hàng, cùng chuỗi khai Flex → PT duyệt → trình ký → lưu. Nhánh \"Mở\" của 8.1 đang lặp lại bước khai báo VSDC của 9.1/9.2.",
- gain:["Một bộ trường khách hàng thay vì 4","Bước khai báo VSDC chỉ còn một chỗ","Một danh sách để đếm TK mở/đóng cho báo cáo tháng"],
- cost:["Form dài, nhiều trường ẩn/hiện theo đối tượng KH","Phải cấu hình 6 khối Quyết định"],
- flow:[
-  {k:"start",t:"Yêu cầu mở / đóng TK lưu ký",w:"Người tạo: NV MG, NV DV"},
-  {k:"form",n:"1",t:"Tiếp nhận & hướng dẫn hồ sơ",w:"NV MG / NV DV",s:"0,5–1h",do:["Chọn Loại yêu cầu, Đối tượng KH, Kênh","Mở: KH ký HĐ 02 bản; nước ngoài lưu ký FNS thêm Mẫu 41 + Giấy ủy quyền","Đóng: KH ký Giấy đề nghị tất toán"],forms:["HĐ 01A/01B","Mẫu 41, Giấy ủy quyền MSGD","Giấy đề nghị tất toán TKLKCK"],fields:["Loại yêu cầu: Mở / Đóng","Đối tượng KH, Kênh",...HD]},
-  {k:"dec",q:"Loại yêu cầu?",br:[
-   {l:"Mở TK",c:[
-    {k:"dec",q:"Kênh = Trực tuyến?",br:[{l:"Online",c:[{k:"wait",n:"2",t:"Chờ KH gửi HĐ giấy",w:"NV DV",s:"≤ 7 ngày LV"}]},{l:"Tại quầy",c:[]}]},
-    {k:"dec",q:"Nước ngoài lưu ký tại FNS?",br:[
-     {l:"Có",c:[
-      {k:"ap",n:"3",t:"Ký HĐ & Giấy ủy quyền",w:"GĐ CN / TGĐ, NĐUQ",s:"4h"},
-      {k:"step",n:"4",t:"BP.LK nộp hồ sơ MSGD cho VSDC HN",w:"NV BP.LK",s:"Theo VSDC",out:{L:BACK("Bổ sung","Nộp lại"),C:"Đã cấp MSGD"}}]},
-     {l:"Khác",c:[]}]},
-    {k:"ap",n:"5",t:"Khai Flex & PT DV duyệt",w:"NV DV · PT DV",s:"1,5h",out:{L:BACK("Cần sửa","Về B5"),C:"Đã duyệt"}},
-    {k:"dec",q:"Đã ký ở B3?",br:[
-     {l:"Chưa",c:[{k:"ap",n:"6",t:"TGĐ / NĐUQ ký HĐ",w:"TGĐ / NĐUQ",s:"4h",out:{L:REJ("Không mở TK"),C:"Đã ký"}}]},
-     {l:"Rồi",c:[]}]},
-    {k:"dec",q:"TK loại 1?",br:[{l:"Có",c:[{k:"step",n:"7",t:"Kế toán khai TK thụ hưởng",w:"NV KT + PT KT",s:"2h"}]},{l:"Không",c:[]}]},
-    {k:"dec",q:"Cần kích hoạt VSDC?",br:[{l:"Có",c:[{k:"step",n:"8",t:"Khai báo mở TK trên VSDC",w:"NV DV + NV BP.LK",s:"4–8h"}]},{l:"NH lưu ký",c:[]}]}]},
-   {l:"Đóng TK",c:[
-    CN_DEC,
-    {k:"ap",n:"9",t:"TGĐ / BLĐ duyệt tất toán",w:"P.DV&QLSP → TGĐ/BLĐ",s:"4h",out:{L:REJ("Không tất toán"),C:"Đã duyệt"}},
-    {k:"step",n:"10",t:"Hủy mapping (VCF0102)",w:"P.DV&QLSP",s:"1h"},
-    {k:"wait",n:"11",t:"Chờ 01 ngày, gửi điện đóng (0059)",w:"PT P.DV&QLSP",s:"1 ngày"}]}]},
-  {k:"step",n:"12",t:"Xác nhận với KH & lưu hồ sơ",w:"NV MG + NV DV",s:"0,5h"},
-  END_OK]};
-
-const M2={id:"m2",name:"Đăng ký / hủy dịch vụ",src:["9d"],color:"var(--lav)",
- merge:"Giữ nguyên 9.4",
- why:"Chuỗi duyệt giống Mở TK nhưng phát sinh nhiều lần sau khi đã có TK, phiếu chỉ 7 dòng. Gộp vào Mở TK sẽ bắt người làm mở form hợp đồng hơn 60 trường chỉ để tắt SMS.",
- gain:["Form ngắn, làm nhanh"],cost:["Thêm 1 workflow phải bảo trì"],
- flow:null};
-
-const M3={id:"m3",name:"Nghiệp vụ lưu ký theo yêu cầu KH",src:["8b","8c","8d"],color:"var(--coral)",
- merge:"Gộp 8.2 + 8.3 + 8.4",
- why:"Cùng 5 bước: tiếp nhận đơn → kiểm tra, lập mẫu VSDC → TGĐ duyệt → Flex & điện → gửi/nhận VSDC → lưu. Cùng người làm. Chỉ khác cặp mẫu và mã giao dịch.",
- gain:["Môi giới chỉ có một chỗ tạo yêu cầu cho mọi việc về CK của khách","Một bước TGĐ duyệt, một bước theo dõi VSDC cho 7 loại nghiệp vụ","Báo cáo SLA chung, lọc theo trường Loại khi cần"],
- cost:["Trường riêng của chuyển khoản (TVLK đối ứng, PCOD, bảng quyền) phải ẩn/hiện","Nếu quyền tạo phiếu khác nhau theo loại thì phải cấu hình quyền theo loại"],
- flow:[
-  {k:"start",t:"Yêu cầu nghiệp vụ lưu ký",w:"Người tạo: P.MG, P.DV.CN, P.DV&QLSP"},
-  {k:"form",n:"1",t:"Tiếp nhận yêu cầu & hồ sơ KH",w:"P.MG / P.DV chi nhánh",s:"0,5h",do:["Chọn Loại: Lưu ký · Rút · Chuyển đi · Nhận về · Phong tỏa · Giải tỏa · Giải tỏa cầm cố","In đơn theo loại cho KH ký"],forms:["BM.02 / BM.03 / BM.01","17 / 19 / 21/LK","Hồ sơ TVLK chuyển (nhận về)"]},
-  CN_DEC,
-  {k:"step",n:"2",t:"Nhận bản gốc & kiểm tra, lập mẫu VSDC",w:"NV P.DV&QLSP",s:"4–24h",out:{L:BACK("Cần bổ sung","Về B1"),C:"Hợp lệ"}},
-  {k:"dec",q:"Loại = Nhận về?",br:[
-   {l:"Không",c:[{k:"ap",n:"3",t:"TGĐ / BLĐ phê duyệt",w:"TGĐ / BLĐ",s:"4h",out:{L:REJ(),C:"Đã duyệt",R:BACK("Cần thêm thông tin","Về B2")}}]},
-   {l:"Nhận về",c:[],s:"Không trình duyệt"}]},
-  {k:"step",n:"4",t:"Thao tác Flex & gửi điện VSDC",w:"NV + PT P.DV&QLSP",s:"1h",out:{L:BACK("SID không khớp","Đồng bộ rồi làm lại B4"),C:"Đã gửi"}},
-  {k:"dec",q:"Loại nghiệp vụ?",br:[
-   {l:"Lưu ký · Phong tỏa · Giải tỏa",c:[{k:"step",n:"5",t:"Gửi hồ sơ bản cứng VSDC",w:"NV P.DV&QLSP",s:"4h"}]},
-   {l:"Chuyển đi",c:[{k:"noti",n:"6",t:"Gửi BM.01 cho TVLK nhận",w:"NV P.DV&QLSP",s:"2h"}]},
-   {l:"Rút · Nhận về",c:[],s:"Không gửi giấy"}]},
-  {k:"step",n:"7",t:"Theo dõi VSDC / TVLK xác nhận",w:"PT P.DV&QLSP",s:"1 ngày LV",out:{L:BACK("VSDC từ chối","Về B2"),C:"Đã xác nhận"}},
-  {k:"dec",q:"Loại = Rút lưu ký?",br:[{l:"Có",c:[{k:"noti",n:"8",t:"Báo KH đến TCPH nhận sổ",w:"NV.MG",s:"1h"}]},{l:"Khác",c:[]}]},
-  {k:"step",n:"9",t:"Lưu hồ sơ",w:"NV P.DV&QLSP",s:"0,5h"},
-  END_OK]};
-
-const M4={id:"m4",name:"Ứng trước tiền bán",src:["10a"],color:"var(--sky,#DDE9F7)",
- merge:"Giữ nguyên 10",
- why:"Nhịp tính bằng phút, có tiền đi ra, người làm chính là Kế toán. Rất khác các quy trình còn lại.",
- gain:["Giữ SLA tính bằng phút, không lẫn với hồ sơ chờ nhiều ngày"],cost:["Không"],flow:null};
-
-const MERGED=[M1,M2,M3,M4];
-const ALL_BEFORE=[...S8,...S9,...S10];
-const BY_ID=Object.fromEntries(ALL_BEFORE.map(x=>[x.id,x]));
-M2.flow=BY_ID["9d"].flow; M4.flow=BY_ID["10a"].flow;
-
-
 /* ===== Bảng đối chiếu bước + màu theo loại việc ===== */
 const PH={
  tiep:["Tiếp nhận hồ sơ","--ph-tiep"],
@@ -857,19 +787,18 @@ function legendHTML(){return `<div class="phleg">${Object.entries(PH).map(([k,v]
 function matrix(m){
   const rows=ROWS[m.id];
   const cell=t=>{
-    if(!t) return '<td class="mx-empty" aria-label="không có">·</td>';
-    if(t[0]==='~') return `<td><div class="mxc add"><span class="addt">Bổ sung</span> ${t.slice(1).trim()}</div></td>`;
-    if(t[0]==='·') return `<td class="mx-in">${t.slice(1).trim()}</td>`;
+    if(!t) return '<td class="mx-empty">—</td>';
+    if(t[0]==='~') return `<td class="mx-add"><span class="addt">Bổ sung</span> ${t.slice(1).trim()}</td>`;
+    if(t[0]==='·') return `<td class="mx-in">${t}</td>`;
     const m2=t.match(/^(B[\d–a-c]+(?:\s\([^)]*\))?)\s(.*)$/);
-    return m2?`<td><div class="mxc"><b class="mxb">${m2[1]}</b>${m2[2]}</div></td>`:`<td><div class="mxc">${t}</div></td>`;
+    return m2?`<td><b class="mxb">${m2[1]}</b> ${m2[2]}</td>`:`<td>${t}</td>`;
   };
   return `${legendHTML()}<div class="mx-wrap"><table class="mx">
-   <thead><tr><th class="mx-ph">Loại việc</th><th class="mx-after">Sau gộp<small>Khối trong workflow mới</small></th>${m.src.map(s=>`<th>Trước<small>${SHORT[s]}</small></th>`).join('')}</tr></thead>
+   <thead><tr><th class="mx-ph">Loại việc</th><th class="mx-after">SAU · khối trong workflow gộp</th>${m.src.map(s=>`<th>TRƯỚC · ${SHORT[s]}</th>`).join('')}</tr></thead>
    <tbody>${rows.map(r=>`<tr style="--rc:var(${PH[r[0]][1]})"><td class="mx-ph"><i></i>${PH[r[0]][0]}</td><td class="mx-after">${r[1]}</td>${m.src.map(s=>cell(r[2][s])).join('')}</tr>`).join('')}</tbody>
-   <tfoot><tr><td class="mx-ph">Độ phủ</td><td class="mx-after">${rows.length} việc</td>${m.src.map(s=>{const n=rows.filter(r=>r[2][s]&&r[2][s][0]!=='·').length;return `<td>${n}/${rows.length} việc<span class="mx-bar" style="width:${Math.round(n/rows.length*60)}px"></span></td>`}).join('')}</tr></tfoot>
+   <tfoot><tr><td class="mx-ph">Số bước</td><td class="mx-after">${rows.length} việc</td>${m.src.map(s=>`<td>${rows.filter(r=>r[2][s]&&r[2][s][0]!=='·').length} / ${rows.length}</td>`).join('')}</tr></tfoot>
   </table></div>`;
 }
-
 
 /* ===== Bảng hiểu quy trình & câu hỏi khảo sát (cùng thứ tự với ROWS) ===== */
 /* mỗi hàng: [ai thực hiện, làm gì[], biểu mẫu[], lưu ý[], câu hỏi[]] */
@@ -924,30 +853,15 @@ function detailTable(m){
   const src=r=>m.src.filter(s=>r[2][s]).map(s=>{const t=r[2][s];const lab=SHORT[s].split(' ')[0];const add=t[0]==='~';const b=(t.match(/^·?\s*(B[\d–a-c]+(?:\s\([^)]*\))?)/)||[])[1];return `<span class="srcp${add?' add':''}">${lab} ${add?'bổ sung':(b||'· trong bước khác')}</span>`}).join('');
   let qn=0;
   const body=rows.map((r,i)=>{const d=det[i]||["",[],[],[],[]];
-    const qs=(QUEST[m.id][i]||[]).map(([g,q])=>{qn++;const key='v2-'+m.id+'-'+i+'-'+q.slice(0,20);const id='q-'+m.id+'-'+i+'-'+qn;return `<li><label for="${id}"><input type="checkbox" id="${id}" data-k="${key}" ${asked[key]?'checked':''}> <span><b class="qg" style="--qg:var(${QG[g][1]})" title="${QG[g][0]}">${g}</b>${q}</span></label></li>`}).join('');
-    return `<article class="dcard" style="--rc:var(${PH[r[0]][1]})">
-      <header><span class="dt-ph">${PH[r[0]][0]}</span><h5>${r[1]}</h5><div class="dwho"><span>Ai làm</span>${d[0]}</div><div class="srcs"><span class="srcl">Bước gốc</span>${src(r)}</div></header>
-      <div class="dgrid">
-        <section><h6>Ngoài thực tế làm gì</h6>${li(d[1])}</section>
-        <section><h6>Biểu mẫu</h6>${li(d[2])}</section>
-        <section class="dt-note"><h6>Lưu ý</h6>${li(d[3])}</section>
-        <section class="dt-ask"><h6>Câu hỏi khảo sát</h6>${qs?`<ul class="qs">${qs}</ul>`:'<span class="dt-none">Không có</span>'}</section>
-      </div></article>`}).join('');
-  const op=(OPENQ[m.id]||[]).map(([g,q],j)=>{const key='v2-'+m.id+'-open-'+j;const id='qo-'+m.id+'-'+j;return `<li><label for="${id}"><input type="checkbox" id="${id}" data-k="${key}" ${asked[key]?'checked':''}> <span><b class="qg" style="--qg:var(${QG[g][1]})" title="${QG[g][0]}">${g}</b>${q}</span></label></li>`}).join('');
-  const recap=rows.map(r=>r[1].replace(/^Bổ sung · /,'')).filter(x=>!/^B\d+\s*Chờ KH/.test('')).join(' → ');
-  const legend=Object.entries(QG).map(([k,v])=>`<span><b class="qg" style="--qg:var(${v[1]})">${k}</b>${v[0]}</span>`).join('');
-  return `<div class="qintro">
-     <div class="qbox"><h6>Hỏi đầu buổi · chốt phạm vi trước khi đi từng bước</h6><ul class="qs">${op}</ul></div>
-     <div class="qbox qrecap"><h6>Chốt cuối · đọc lại cho khách xác nhận</h6><p>"Em đọc lại luồng: ${recap}. Đúng không ạ? Có bước nào bên mình làm mà em chưa ghi không?"</p></div>
-     <div class="qleg">${legend}</div>
-   </div><div class="dlist">${body}</div><p class="dt-count" id="dtc"></p>`;
+    const qs=d[4].map(q=>{qn++;const key=m.id+'-'+i+'-'+q.length+'-'+q.slice(0,12);const id='q-'+m.id+'-'+i+'-'+qn;return `<li><label for="${id}"><input type="checkbox" id="${id}" data-k="${key}" ${asked[key]?'checked':''}> <span>${q}</span></label></li>`}).join('');
+    return `<tr style="--rc:var(${PH[r[0]][1]})"><td class="dt-step"><span class="dt-ph">${PH[r[0]][0]}</span><b>${r[1]}</b><div class="srcs">${src(r)}</div></td><td>${d[0]}</td><td>${li(d[1])}</td><td>${li(d[2])}</td><td class="dt-note">${li(d[3])}</td><td class="dt-ask">${qs?`<ul class="qs">${qs}</ul>`:'<span class="dt-none">—</span>'}</td></tr>`}).join('');
+  return `<div class="dt-wrap"><table class="dt"><thead><tr><th style="width:220px">Bước (sau gộp) · bước gốc</th><th style="width:140px">Ai thực hiện</th><th style="width:280px">Ngoài thực tế làm gì</th><th style="width:200px">Biểu mẫu</th><th style="width:220px">Lưu ý</th><th style="width:260px">Câu hỏi khảo sát</th></tr></thead><tbody>${body}</tbody></table></div><p class="dt-count" id="dtc"></p>`;
 }
 function bindAsked(){
-  const upd=()=>{const all=panel.querySelectorAll('.dt-ask input, .qbox input');const done=[...all].filter(x=>x.checked).length;const el=panel.querySelector('#dtc');if(el)el.textContent=`Đã hỏi ${done}/${all.length} câu trong workflow này. Dấu tick chỉ lưu trên trình duyệt của bạn.`};
-  panel.querySelectorAll('.dt-ask input, .qbox input').forEach(cb=>cb.addEventListener('change',()=>{const o=loadAsked();if(cb.checked)o[cb.dataset.k]=1;else delete o[cb.dataset.k];saveAsked(o);upd()}));
+  const upd=()=>{const all=panel.querySelectorAll('.dt-ask input');const done=[...all].filter(x=>x.checked).length;const el=panel.querySelector('#dtc');if(el)el.textContent=`Đã hỏi ${done}/${all.length} câu trong workflow này. Dấu tick chỉ lưu trên trình duyệt của bạn.`};
+  panel.querySelectorAll('.dt-ask input').forEach(cb=>cb.addEventListener('change',()=>{const o=loadAsked();if(cb.checked)o[cb.dataset.k]=1;else delete o[cb.dataset.k];saveAsked(o);upd()}));
   upd();
 }
-
 
 /* ===== Câu hỏi khảo sát tập trung lấy thông tin thiết lập ===== */
 const QG={A:["Ưu tiên & tần suất","--qa"],B:["Luồng & phân quyền","--qb"],C:["Ngoại lệ","--qc"],D:["Người dùng & quy mô","--qd"],E:["Điểm nghẽn & mẫu thật","--qe"]};
@@ -1001,14 +915,71 @@ const QUEST={
   [["B","ĐN gốc do KT lưu hay DV lưu?"]]]
 };
 
+/* ===== Thẻ từng bước cho 9 quy trình con (không gộp) ===== */
+/* chỉ số bước (thứ tự collect) → [workflow gộp, các hàng tham chiếu lưu ý & câu hỏi] */
+const NMAP={
+ "8a":["m1",[[0],[7],[7],[8],[9],[10],[11,7],[12]]],
+ "9a":["m1",[[0],[1],[4],[5],[6],[7],[12]]],
+ "9b":["m1",[[0],[2],[3],[4],[7],[12]]],
+ "9c":["m1",[[0],[4],[5],[12]]],
+ "9d":["m2",[[0],[1],[2],[3],[4]]],
+ "8b":["m3",[[0],[1],[2,3],[4],[5],[7],[8],[9]]],
+ "8c":["m3",[[0],[1],[2,3,6],[],[4,7],[9]]],
+ "8d":["m3",[[0],[1],[2,3],[4,5],[],[],[7,9]]],
+ "10a":["m4",[[0],[1],[2],[3],[4],[5],[6],[7],[],[],[],[8]]]
+};
+function cards9(w){
+  const map=NMAP[w.id]; if(!map) return '';
+  const mid=map[0], refs=map[1];
+  const nodes=collect(w.flow,[]);
+  const asked=loadAsked();
+  const li=a=>a&&a.length?`<ul>${a.map(x=>`<li>${x}</li>`).join('')}</ul>`:'<span class="dt-none">—</span>';
+  const qli=(g,q,key,id)=>`<li><label for="${id}"><input type="checkbox" id="${id}" data-k="${key}" ${asked[key]?'checked':''}> <span><b class="qg" style="--qg:var(${QG[g][1]})" title="${QG[g][0]}">${g}</b>${q}</span></label></li>`;
+  let qn=0;
+  const body=nodes.map((n,i)=>{
+    const rr=refs[i]||[];
+    let phase=rr.length?ROWS[mid][rr[0]][0]:'tiep';
+    if(phase==='cn'&&!n.add&&!/GĐ/.test(n.t)) phase='tiep';
+    const notes=[];rr.forEach(r=>{(DETAIL[mid][r]||[])[3]&&DETAIL[mid][r][3].forEach(x=>{if(!n.add&&/Excel không (có|ghi) bước|File Excel không có/.test(x))return;if(!notes.includes(x))notes.push(x)})});
+    if(n.add) notes.unshift('Bước bổ sung: quy trình gốc có, file Excel không ghi');
+    if(n.when) notes.unshift('Chỉ chạy khi: '+n.when);
+    const qs=[];rr.forEach(r=>{(QUEST[mid][r]||[]).forEach(q=>{if(!qs.some(x=>x[1]===q[1]))qs.push(q)})});
+    const qhtml=qs.map(([g,q])=>{qn++;return qli(g,q,'v3-'+w.id+'-'+i+'-'+q.slice(0,20),'q9-'+w.id+'-'+qn)}).join('');
+    const nlabel=n.n==='+'?'<span class="addt">Bổ sung</span>':`<b class="mxb">${n.n}</b>`;
+    return `<article class="dcard${n.add?' isadd':''}" style="--rc:var(${PH[phase][1]})">
+      <header><span class="dt-ph">${PH[phase][0]} · ${TY[n.k][0]}</span><h5>${nlabel} ${n.t}</h5><div class="dwho"><span>Ai làm</span>${n.w}</div><div class="srcs"><span class="srcl">SLA gợi ý</span><span class="srcp">${n.s||'—'}</span></div></header>
+      <div class="dgrid">
+        <section><h6>Ngoài thực tế làm gì</h6>${li(n.do)}</section>
+        <section><h6>Biểu mẫu</h6>${li(n.forms)}<h6 style="margin-top:10px">Trường cần ghi nhận</h6>${li(n.fields)}</section>
+        <section class="dt-note"><h6>Lưu ý</h6>${li(notes)}</section>
+        <section class="dt-ask"><h6>Câu hỏi khảo sát</h6>${qhtml?`<ul class="qs">${qhtml}</ul>`:'<span class="dt-none">Không có câu riêng</span>'}</section>
+      </div></article>`;
+  }).join('');
+  const op=(OPENQ[mid]||[]).map(([g,q],j)=>qli(g,q,'v3-'+w.id+'-open-'+j,'qo9-'+w.id+'-'+j)).join('');
+  const recap=nodes.map(n=>(n.n==='+'?'(bổ sung) ':n.n+' ')+n.t).join(' → ');
+  const legend=Object.entries(QG).map(([k,v])=>`<span><b class="qg" style="--qg:var(${v[1]})">${k}</b>${v[0]}</span>`).join('');
+  return `<h3 style="margin-block:28px 10px">Hiểu từng bước &amp; câu hỏi khảo sát</h3>
+   <div class="qintro">
+     <div class="qbox"><h6>Hỏi đầu buổi · chốt phạm vi</h6><ul class="qs">${op}</ul></div>
+     <div class="qbox qrecap"><h6>Chốt cuối · đọc lại cho khách xác nhận</h6><p>"Em đọc lại luồng: ${recap}. Đúng không ạ? Có bước nào bên mình làm mà em chưa ghi không?"</p></div>
+     <div class="qleg">${legend}</div>
+   </div>
+   <div class="dlist">${body}</div><p class="dt-count" id="dtc"></p>`;
+}
+function bind9(){
+  const sel='.dt-ask input, .qbox input';
+  const upd=()=>{const all=panel.querySelectorAll(sel);const done=[...all].filter(x=>x.checked).length;const el=panel.querySelector('#dtc');if(el)el.textContent=`Đã hỏi ${done}/${all.length} câu trong quy trình này. Dấu tick chỉ lưu trên trình duyệt của bạn.`};
+  panel.querySelectorAll(sel).forEach(cb=>cb.addEventListener('change',()=>{const o=loadAsked();if(cb.checked)o[cb.dataset.k]=1;else delete o[cb.dataset.k];saveAsked(o);upd()}));
+  upd();
+}
+
 /* ===================== renderer ===================== */
 const VL='<div class="vl"></div>';
 function nodeHTML(it){
   if(it.k==='goto') return `<div class="goto">${it.t}</div>`;
   if(it.k==='skip') return `<span class="skip">${it.t}</span>`;
   const ty=TY[it.k];
-  const ph=null;
-  return `<div class="nd ${it.k}${it.add?' add':''}${ph?' phs':''}"${ph?` style="--rc:var(${PH[ph][1]})" title="${PH[ph][0]}"`:''}>${it.n?`<span class="no">${it.n==='+'?'Bổ sung':(/^\d+$/.test(it.n)?'B'+it.n:it.n)}</span>`:''}<div class="ty"><i class="ic ${it.k}">${ty[1]}</i>${ty[0]}</div><div class="tt">${it.t}</div>${it.w?`<div class="wh">${it.w}</div>`:''}${it.s?`<div class="mt"><span>SLA: ${it.s}</span><span>⋯</span></div>`:''}</div>`;
+  return `<div class="nd ${it.k}${it.add?' add':''}">${it.n?`<span class="no">${it.n==='+'?'Bổ sung':it.n}</span>`:''}<div class="ty"><i class="ic ${it.k}">${ty[1]}</i>${ty[0]}</div><div class="tt">${it.t}</div>${it.w?`<div class="wh">${it.w}</div>`:''}${it.s?`<div class="mt"><span>SLA: ${it.s}</span><span>⋯</span></div>`:''}</div>`;
 }
 function seq(items){
   const o=[];
@@ -1037,86 +1008,40 @@ function outHTML(o,rest){
     return `<div class="ocol">${bar}<span class="stub"></span><span class="lbl ${s.k}">${s.k==='ok'?'✓ ':s.k==='no'?'✕ ':'? '}${s.l}</span>${body?'<span class="stub"></span>'+body:''}${tail}</div>`;
   }).join('')}</div>`;
 }
-/* đếm khối */
-function walk(items,f){items.forEach(it=>{if(it.k==='dec'){f(it);it.br.forEach(b=>walk(b.c,f));return}f(it);if(it.out){['L','R'].forEach(s=>{if(it.out[s])walk(it.out[s].c,f)})}})}
-function stats(flows){
-  let blocks=0,ap=0,dec=0,form=0;
-  flows.forEach(fl=>walk(fl,it=>{if(['form','step','ap','wait','noti'].includes(it.k))blocks++;if(it.k==='ap')ap++;if(it.k==='dec')dec++;if(it.k==='form')form++;}));
-  return {wf:flows.length,blocks,ap,dec,form};
+function collect(items,acc){
+  items.forEach(it=>{
+    if(it.k==='dec'){it.br.forEach(b=>collect(b.c,acc));return}
+    if(it.n) acc.push(it);
+    if(it.out){['L','R'].forEach(s=>{if(it.out[s]) collect(it.out[s].c,acc)})}
+  });
+  return acc;
 }
-const before=stats(ALL_BEFORE.map(x=>x.flow)), after=stats(MERGED.map(x=>x.flow));
-const S=[["Số workflow phải dựng",before.wf,after.wf,"+ 1 công việc định kỳ (báo cáo tháng)"],["Khối công việc (bước, duyệt, chờ, thông báo)",before.blocks,after.blocks,""],["Khối phê duyệt phải gán người",before.ap,after.ap,""],["Khối Quyết định (rẽ nhánh)",before.dec,after.dec,"Tăng vì khác biệt chuyển thành điều kiện"],["Bộ trường khách hàng phải khai",9,4,"Mỗi workflow một bộ"]];
-document.getElementById('stats').innerHTML=S.map(r=>{
-  const d=r[2]-r[1];const cls=d<0?'down':d>0?'up':'';
-  return `<div class="stat"><span class="sl">${r[0]}</span><div class="sv"><b class="b4">${r[1]}</b><span class="arr">→</span><b class="af">${r[2]}</b><span class="dl ${cls}">${d>0?'+':''}${d}</span></div>${r[3]?`<small>${r[3]}</small>`:''}</div>`}).join('');
+const list=a=>a&&a.length?`<ul>${a.map(x=>`<li>${x}</li>`).join('')}</ul>`:'—';
 
-/* sơ đồ ánh xạ */
-(function(){
-  const left=[["8a","8.1 Mở, đóng & quản lý TKLK"],["9a","9.1 Mở TK – KH trong nước"],["9b","9.2 Mở TK – NN lưu ký FNS"],["9c","9.3 Mở TK – NN lưu ký NH"],["9d","9.4 Đăng ký / hủy dịch vụ"],["8b","8.2 Lưu ký & rút lưu ký"],["8c","8.3 Chuyển khoản & nhận CK"],["8d","8.4 Phong tỏa & giải tỏa"],["10a","10 Ứng trước tiền bán"]];
-  const right=[["m1","1 · Mở / đóng TK lưu ký","var(--lime)"],["m2","2 · Đăng ký / hủy dịch vụ","var(--lav)"],["m3","3 · Nghiệp vụ lưu ký theo yêu cầu KH","var(--coral)"],["m4","4 · Ứng trước tiền bán","var(--sky)"],["cron","Công việc định kỳ: Báo cáo tháng 07/08/LK-TV","var(--paper)"]];
-  const map={"8a":["m1","cron"],"9a":["m1"],"9b":["m1"],"9c":["m1"],"9d":["m2"],"8b":["m3"],"8c":["m3"],"8d":["m3"],"10a":["m4"]};
-  const LX=20,LW=330,RX=640,RW=340,H=40,G=14;
-  const ly=i=>40+i*(H+G), rpos={m1:118,m2:265,m3:375,m4:470,cron:540};
-  const colorOf=Object.fromEntries(right.map(r=>[r[0],r[2]]));
-  let svg=`<svg viewBox="0 0 1000 600" role="img" aria-label="Ánh xạ 9 quy trình con sang 4 workflow gộp">`;
-  svg+=`<text x="${LX}" y="22" class="svg-m" font-size="12" font-weight="700">TRƯỚC · 9 quy trình con (theo file Excel)</text><text x="${RX}" y="22" class="svg-m" font-size="12" font-weight="700">SAU · 4 workflow + 1 việc định kỳ</text>`;
-  left.forEach((l,i)=>{map[l[0]].forEach(t=>{const y1=ly(i)+H/2,y2=rpos[t]+H/2;svg+=`<path d="M${LX+LW} ${y1} C ${LX+LW+150} ${y1}, ${RX-150} ${y2}, ${RX} ${y2}" fill="none" stroke="${colorOf[t]}" stroke-width="${t==='cron'?2:4}" ${t==='cron'?'stroke-dasharray="6 5"':''} opacity=".95"/>`})});
-  left.forEach((l,i)=>{const t=map[l[0]][0];svg+=`<rect x="${LX}" y="${ly(i)}" width="${LW}" height="${H}" rx="10" fill="var(--canvas)" stroke="var(--line)"/><rect x="${LX}" y="${ly(i)}" width="8" height="${H}" rx="4" fill="${colorOf[t]}"/><text x="${LX+20}" y="${ly(i)+25}" class="svg-t" font-size="13.5" font-weight="600">${l[1]}</text>`});
-  right.forEach(r=>{const y=rpos[r[0]];svg+=`<rect x="${RX}" y="${y}" width="${RW}" height="${H}" rx="10" fill="${r[2]}" stroke="var(--ink)" stroke-width="${r[0]==='cron'?1:1.5}" ${r[0]==='cron'?'stroke-dasharray="5 4"':''}/><text x="${RX+14}" y="${y+25}" font-size="13.5" font-weight="800" fill="${r[0]==='m3'?'#fff':'var(--ink)'}" font-family="Be Vietnam Pro,system-ui,sans-serif">${r[1]}</text>`});
-  svg+='</svg>';
-  document.getElementById('map').innerHTML=svg;
-})();
-
-/* tab từng workflow */
 const tabs=document.getElementById('tabs'),panel=document.getElementById('panel');
-MERGED.forEach((m,i)=>{const b=document.createElement('button');b.type='button';b.id='t-'+m.id;b.setAttribute('role','tab');b.setAttribute('aria-selected','false');b.innerHTML=`<span class="n">0${i+1}</span>${m.name}`;b.addEventListener('click',()=>show(m.id));tabs.appendChild(b)});
-let view='both';
-function stepsCard(src){
-  const items=[];walk(src.flow,it=>{if(it.n&&it.k!=='dec')items.push(it)});
-  return `<div class="bcard"><h5>${src.title}</h5><ol>${items.map(it=>`<li><span class="bn ${it.add?'add':''}">${it.n==='+'?'+':it.n}</span><span>${it.t}<small>${it.w}</small></span></li>`).join('')}</ol></div>`;
+let cur={g:'s8',s:'8a'};
+GROUPS.forEach(g=>{const b=document.createElement('button');b.type='button';b.id='t-'+g.id;b.setAttribute('role','tab');b.setAttribute('aria-selected','false');b.innerHTML=`${g.name}<span class="n">${g.subs.length} QT con</span>`;b.addEventListener('click',()=>show(g.id,g.subs[0].id));tabs.appendChild(b)});
+function show(gid,sid){
+  const g=GROUPS.find(x=>x.id===gid), w=g.subs.find(x=>x.id===sid)||g.subs[0];
+  cur={g:gid,s:w.id};
+  try{localStorage.setItem('sodo2',JSON.stringify(cur))}catch(e){}
+  tabs.querySelectorAll('button').forEach(b=>b.setAttribute('aria-selected',b.id==='t-'+gid?'true':'false'));
+  const subtabs=g.subs.length>1?`<div class="subtabs" role="tablist" aria-label="Quy trình con">${g.subs.map(s=>`<button type="button" role="tab" id="st-${s.id}" aria-selected="${s.id===w.id}" data-g="${gid}" data-s="${s.id}">${s.name}</button>`).join('')}</div>`:'';
+  const nodes=collect(w.flow,[]);
+  const rows=nodes.map(n=>`<tr class="${n.add?'addrow':''}"><td class="c"><b>${n.n==='+'?'Bổ sung':n.n}</b></td><td><b>${n.t}</b><br><span class="kt"><i class="ic ${n.k}">${TY[n.k][1]}</i>${TY[n.k][0]}</span>${n.when?`<span class="when">Chạy khi: ${n.when}</span>`:''}${n.add?'<span class="when" style="color:var(--blue-ink)">Không có trong Excel, lấy từ quy trình gốc</span>':''}</td><td>${n.w}</td><td>${list(n.do)}</td><td class="hl">${list(n.forms)}</td><td class="hl">${list(n.fields)}</td><td class="c">${n.s||'—'}</td></tr>`).join('');
+  panel.innerHTML=`${subtabs}
+   <h3 style="font-size:22px;margin-bottom:6px">${w.title}</h3>
+   <p style="font-size:14.5px;max-width:90ch;margin-bottom:14px">${w.desc}</p>
+   <div class="canvas-wrap gridbg" role="img" aria-label="Sơ đồ khối ${w.title}"><div class="canvas-inner">${seq(w.flow)}</div></div>
+   <p style="font-size:12.5px;color:var(--muted);margin-top:8px">Số trên mỗi khối là số bước trong file Excel của Funan. Khối viền xanh nét đứt "Bổ sung" là bước quy trình gốc có nhưng Excel không ghi. Bên dưới là thẻ từng bước theo đúng thứ tự.</p>
+   ${cards9(w)}
+   <div class="wf-note"><b>Khác biệt giữa file Excel và quy trình gốc:</b><ul style="margin:6px 0 0;padding-left:18px">${w.xl.map(x=>`<li>${x}</li>`).join('')}</ul></div>`;
+  panel.querySelectorAll('.subtabs button').forEach(b=>b.addEventListener('click',()=>show(b.dataset.g,b.dataset.s)));
+  enhanceZoom(panel.querySelector('.canvas-wrap'));
+  bind9();
 }
-function show(id){
-  const m=MERGED.find(x=>x.id===id);
-  tabs.querySelectorAll('button').forEach(b=>b.setAttribute('aria-selected',b.id==='t-'+id?'true':'false'));
-  try{localStorage.setItem('ss-tab',id)}catch(e){}
-  const srcs=m.src.map(s=>BY_ID[s]);
-  const bst=stats(srcs.map(s=>s.flow)), ast=stats([m.flow]);
-  panel.innerHTML=`
-   <div class="mhead">
-     <div><span class="chip ${m.src.length>1?'sug':'fact-c'}">${m.merge}</span><h3 style="font-size:24px;margin-top:8px">${m.name}</h3><p style="margin-top:6px;max-width:75ch">${m.why}</p></div>
-     <div class="gc"><div class="g"><h5>Được</h5><ul>${m.gain.map(x=>`<li>${x}</li>`).join('')}</ul></div><div class="c"><h5>Đổi lại</h5><ul>${m.cost.map(x=>`<li>${x}</li>`).join('')}</ul></div></div>
-   </div>
-   <div class="mini">
-     <div><span>Workflow</span><b>${bst.wf} → ${ast.wf}</b></div>
-     <div><span>Khối công việc</span><b>${bst.blocks} → ${ast.blocks}</b></div>
-     <div><span>Khối phê duyệt</span><b>${bst.ap} → ${ast.ap}</b></div>
-     <div><span>Bộ trường KH</span><b>${srcs.length} → 1</b></div>
-   </div>
-   <div class="seg" role="group" aria-label="Chọn xem">
-     <button type="button" id="v-before" aria-pressed="${view==='before'}">Bảng đối chiếu bước</button>
-     <button type="button" id="v-after" aria-pressed="${view==='after'}">Sơ đồ sau gộp</button>
-     <button type="button" id="v-both" aria-pressed="${view==='both'}">Xem cả hai</button>
-   </div>
-   <div id="vb" ${view==='after'?'hidden':''}>
-     <h4 class="vh">Bảng đối chiếu bước · mỗi hàng là một việc, cùng hàng là cùng việc ở các quy trình cũ</h4>
-     ${matrix(m)}
-   </div>
-   <div id="va" ${view==='before'?'hidden':''}>
-     <h4 class="vh">Sơ đồ sau gộp · số B trên khối khớp với cột "Sau gộp" trong bảng</h4>
-     <div class="canvas-wrap gridbg"><div class="canvas-inner">${(CURPH={id:m.id,map:NODE_PH[m.id]||{}},seq(m.flow))}</div></div>
-     <p style="font-size:12.5px;color:var(--muted);margin-top:8px">Kéo ngang trong khung để xem hết.</p>
-   </div>
-   <h4 class="vh" id="hieu" style="margin-top:30px">Bảng hiểu quy trình &amp; câu hỏi khảo sát · đọc để hiểu trước, tick khi đã hỏi</h4>
-   ${detailTable(m)}`;
-  const setV=v=>{view=v;show(id)};
-  document.getElementById('v-before').onclick=()=>setV('before');
-  document.getElementById('v-after').onclick=()=>setV('after');
-  document.getElementById('v-both').onclick=()=>setV('both');
-  enhanceZoom(panel.querySelector('#va:not([hidden]) .canvas-wrap'));
-  bindAsked();
-}
-let st='m1';try{const s=localStorage.getItem('ss-tab');if(s&&MERGED.some(m=>m.id===s))st=s}catch(e){}
-show(st);
+try{const s=JSON.parse(localStorage.getItem('sodo2')||'null');if(s&&GROUPS.some(g=>g.id===s.g))cur=s}catch(e){}
+show(cur.g,cur.s);
 
 
 /* ===== Phóng to / thu nhỏ sơ đồ (transform, hỗ trợ chụm tay) ===== */
